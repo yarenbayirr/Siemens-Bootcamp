@@ -1,0 +1,12 @@
+body {
+    background-color: bisque;
+  }
+  input {
+    border: 1px solid red;
+  }
+  input[type="password"] {
+    border: 3px solid rebeccapurple;
+  }
+  select {
+    border: 2px dashed blue;
+  }
