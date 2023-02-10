@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div{
+            color: red;
+            border: 2px solid black;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+    
+</head>
+<body>
+    <div onclick="mouseClickEvent()"onmouseover="mouseOverEvent()" onmouseout="mouseOutEvent()" onmouseup="mouseUpEvent()" onmousedown="mouseDownEvent()" onmousemove="mouseMoveEvent()"></div>
+    <input id="txtNumber" type="number" value="0">
+   
+</body>
+<script>
+    function mouseClickEvent(){console.log("mouse click")}
+    function mouseOverEvent(){console.log("mouse over")}
+    function mouseOutEvent(){console.log("mouse out")}
+    function mouseUpEvent(){console.log("mouse up")}
+    function mouseDownEvent(){console.log("mouse down")}
+    function mouseMoveEvent(){console.log("mouse move")}
+     
+</script>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <style>
+        /* **KENDIMIZ BIR CLASS OLUSTURDUK. ALERTLERIMIZIN GORUNURLUGUNU KONTROL EDIYOR** */
+        .custom-hide{
+            display: none;
+        }
+        .custom-show{
+          display: block;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-4 offset-md-4 mt-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Ürün Kayıt</h5>
+            <div id="result">
+            <div id="divSuccess"class="alert alert-success custom-hide" role="alert">Ürün başarılı bir şekilde kaydedildi</div>
+            <div id="divFail"class="alert alert-danger custom-hide" role="alert">Bir hata meydana geldi</div>
+            </div>
+            <form>
+              <div class="mb-3">
+                <label for="txtName" class="form-label">Ürün İsmi :</label>
+                <input type="text" class="form-control" id="txtName" />
+              </div>
+              <div class="mb-3">
+                <label for="txtPrice" class="form-label">Ürün Fiyat :</label>
+                <input type="text" class="form-control" id="txtPrice" />
+              </div>
+              <div class="mb-3">
+                <label for="dropColorMenu" class="form-label"
+                  >Ürün Renk :</label
+                >
+                <select class="form-control"id="dropColorMenu">
+                  <option value="">Seçiniz</option>
+                  <option value="1">Kırmızı</option>
+                  <option value="2">Mavi</option>
+                  <option value="3">Yeşil</option>
+                </select>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="checkPublish"
+                />
+                <label class="form-check-label" for="checkPublish"
+                  >Yayınlansın mı?</label
+                >
+              </div>
+
+              <div class="mb-3">
+                <p>Yayınlanma süresini seçiniz</p>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="15"
+                    name="radioPublishDay"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault1"
+                    >15 gün</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="30"
+                    name="radioPublishDay"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault2"
+                    >30 gün</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    value="45"
+                    name="radioPublishDay"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault3"
+                    >45 gün</label
+                  >
+                </div>
+              </div>
+
+              <button id="btnSaveOrUpdate" onclick="saveOrUpdate()" type="button" class="btn btn-primary">
+                Kaydet
+              </button>
+              <!-- <button id="btnSave" type="button" class="btn btn-primary">
+                Kaydet2 -->
+              </button>
+              <button type="reset" class="btn btn-warning">Temizle</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- **EKLENECEK URUNLER ICIN TABLO OLUSTURUYORUZ. BASLIKLARI THEAD ICERISINDE GIRIP BODY KISMINI EVENT ILE DOLDURACAGIZ** -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>İsim</th>
+                    <th>Fiyat</th>
+                    <th>Renk</th>
+                    <th>Yayında mı?</th>
+                    <th>Yayın Süresi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    //ikinci yöntem id üzerinden elementi yakalayıp addeventlistener methodu ile event ve gerçekleşecek metodu çağırmak
+    // var btnSave = document.querySelector("#btnSave");
+    // btnSave.addEventListener("click", function () {
+    //   console.log("click");
+    // });
+
+    // function dropColorMenuChange() {
+    //   console.log(document.querySelector("#dropColorMenu").value);
+    //   var dropDownColorMenu = document.querySelector("#dropColorMenu");
+    //   let text =
+    //     dropDownColorMenu.options[dropDownColorMenu.selectedIndex].text;
+    //   console.log(text);
+    // }
+
+
+
+    //**DEGISKENLERIMIZ**
+    var productIncreaseId=0; //her ürün eklediğimde artacak olan, ürün id lerine karşılık gelen değişken
+    var updateProductId = 0; //güncellenecek ürünün id sini yakalayacağımız değişken 
+    var productList = []; //ürünleri tutacağımız boş liste
+
+    //**ALERT ELEMENTLERIMIZI YAKALADIK**
+    const divSuccess =  document.querySelector("#divSuccess");
+    const divFail = document.querySelector("#divFail");
+
+    //**KAYDET BUTONUMUZU YAKALADIK**
+    const btnSaveOrUpdate = document.querySelector("#btnSaveOrUpdate")
+    
+    let isSaveOrUpdate = "saveType" //buton kaydetme mi yapacak yoksa güncelleme mi, bunun için değişken atadık. Değişkenin ilk değeri savetype.
+    const arrayBtnAction = [
+        {key:"saveType", func: save},
+        {key:"updateType", func: update}
+    ] //nesnelerden oluşan bir dizi oluşturduk. Fonksiyonlara karşılık gelen anahtarlar mevcut. 
+
+
+    //**GUNCELLENECEK URUNU FORM EKRANINA TAŞIYAN FONKSIYON**
+    function btnLoadToForm(id){
+        //fonksiyon dışarıdan id parametresi alıyor. Bu parametre ile artık global alanda tanımladığımız değişkende güncellenecek ürünün id'sini tutuyoruz.
+        updateProductId = id;
+        btnSaveOrUpdate.textContent = "Güncelle";
+        isSaveOrUpdate = "updateType";
+        //güncellenecek ürünü id si ile listeden bulup aşağıdaki değişkene atıyoruz.
+        const productToUpdate = productList.find(x=>x.id==id);
+
+       //listeden aldığımız ürünün tüm bilgilerini form elemanlarına yazdırıyoruz.
+       document.getElementById("txtName").value = productToUpdate.name;
+       document.getElementById("txtPrice").value = productToUpdate.price;
+       document.querySelector("#dropColorMenu").value = productToUpdate.color;
+       document.querySelector("#checkPublish").checked = productToUpdate.ispublish;
+       //birden çok radyo buton olduğu için hepsini queryselectorall ile alıp diziye attık
+       const radioButtonArray=document.querySelectorAll("input[name='radioPublishDay']")
+       //dizinin elemanlarını döndük ve güncellenmesi istenen üründe seçili ise burda da seçiliyi true yap dedik.
+       radioButtonArray.forEach(x=> {
+      if(x.value == productToUpdate.publishDay) x.checked =true;
+      })
+    }
+
+    //**KAYDETE BASTIGIMIZDA URUNU ASAGIYA GETIREN METHOD
+    function loadTable(){
+        //html kısmında boş bıraktığımız body kısmını id ile yakaladık
+        const tableBody = document.querySelector("#tableBody")
+        //içeriğini resetledik
+        tableBody.innerHTML = '';
+        //ürün listesini döndük, dönerken tablo satırı oluşturduk
+        productList.forEach(newProduct =>{
+            let newRow = document.createElement("tr");
+            newRow.innerHTML = `
+        <td>${newProduct.name}</td>
+        <td>${newProduct.price}</td>
+        <td>${newProduct.color}</td>
+        <td>${newProduct.ispublish}</td>
+        <td>${newProduct.publishDay}</td>
+        <td><button id="btnUpdate" onclick="btnLoadToForm(${newProduct.id}) type="button" class="btn btn-success">güncelle</button></td>
+        ` //***her ürün eklenirken yanında güncelleme butonu oluşturuyoruz***. onclick event için fonksiyonu yukarıda tanımlamıştık.
+         //append ile birleştirme işlemi yani tabloya ekle diyoruz.
+         tableBody.appendChild(newRow);
+        })
+    }
+
+
+    //**ALERTLERI BASARILI OLDUGUNDA CALISTIRACAK FONKSIYON**
+    function showSuccess() {
+        divSuccess.classList.remove("custom-hide");
+        divSuccess.classList.add("custom-show");
+    }
+
+    //**ALERTLERI BASARISIZ OLDUGUNDA CALISTIRACAK FONKSIYON**
+    function showFail() {
+        divFail.classList.remove("custom-hide");
+        divFail.classList.add("custom-show");
+    }
+
+    //**FORMU EN BASTAKI GORUNTUSUNE DONDURECEK FONKSIYON**
+    function reset() {
+        //form elemanını yakalayıp reset metodunu çalıştırdık
+        document.querySelector("form").reset();
+        //en baştaki gibi butonumuz kaydet olacak, bunun için değişkeni savetype ayarladık
+        isSaveOrUpdate = "saveType";
+        //ve kaydet olarak görünecek
+        btnSaveOrUpdate.textContent = "Kaydet";
+        //alerlet baştaki gibi gözükmeyecek bunun için sınıflarının gizli özelliğe sahip sınıf olması gerekiyor
+        setTimeout(function () {
+            divSuccess.classList.remove("custom-show");
+            divFail.classList.remove("custom-show");
+            divSuccess.classList.add("custom-hide");
+            divFail.classList.add("custom-hide");
+        }, 2000)
+    }
+
+    //**YENİ ÜRÜNÜ TÜMÜYLE KAYDEDEN FONKSİYON**
+    function save () {
+         //burada formdan gelen özellikleri tuttuk
+        const name = document.getElementById("txtName").value;
+        const price = document.getElementById("txtPrice").value;
+        const color = document.querySelector("#dropColorMenu").value;
+        const ispublish = document.querySelector("#checkPublish").checked;
+        const publishDay = document.querySelector("input[name='radioPublishDay']:checked").value;
+
+        productIncreaseId++; //kaydedildiğinde ürün sayısı bir artacak, dolayısıyla ürün id si de.
+        //formdan gelen özellikleri yeni nesnemize atadık
+        const newProduct = {
+          name: name,
+          price: price,
+          color: color,
+          ispublish: ispublish,
+          publishDay: publishDay,
+          productId: productId
+        };
+        try {
+          console.log(newProduct);
+          showSuccess();
+          //**yeni ürünü listeye burada ekledik**
+          productList.push(newProduct);
+          //ürün eklendikten sonra bu listeyi dönen ve html elementlerine ekleyen fonksiyonu çağırıyoruz.
+          loadTable(); 
+          //son olarak form ekranını resetliyoruz
+          document.querySelector("form").reset;
+        } 
+        catch (error) {
+        showFail();
+        }
+        finally{
+        reset();
+      }
+    }
+
+    //**LİSTEDEKİ ÜRÜNÜ TAMAMEN GÜNCELLEYEBİLDİĞİMİZ FONKSİYON**
+    function update () {
+        //formdaki bilgileri aldığımız kısım
+        const name = document.getElementById("txtName").value;
+        const price = document.getElementById("txtPrice").value;
+        const color = document.querySelector("#dropColorMenu").value;
+        const ispublish = document.querySelector("#checkPublish").checked;
+        const publishDay = document.querySelector("input[name='radioPublishDay']:checked").value;
+
+        //globalde tanımladığımız updateProductId değişkenini burada güncellenecek nesneyi bulmak için kullanıyoruz.
+        //güncellenecek nesnenin index numarasını alıyoruz
+        let productToUpdateIndex = productList.findIndex(product=>product.id == updateProductId);
+       
+        //güncellenecek nesneyi ürün listemizden index numarasına göre çekiyoruz. 
+        productList[productToUpdateIndex].name = name;
+        productList[productToUpdateIndex].price = price;
+        productList[productToUpdateIndex].color = color;
+        productList[productToUpdateIndex].ispublish = ispublish;
+        productList[productToUpdateIndex].publishDay = publishDay;
+
+      try {
+
+         showSuccess();
+         loadTable();
+
+      } 
+      catch (error) {
+       showFail();
+      }
+      finally{
+       reset();
+      }
+    }
+
+    //**GÜNCELLEME YA DA KAYDET DURUMLARININ BELİRLENDİĞİ FONKSIYON**
+    function saveOrUpdate() {
+        arrayBtnAction.find(x=>x.key==isSaveOrUpdate).func();
+    }
+  </script>
+</html>

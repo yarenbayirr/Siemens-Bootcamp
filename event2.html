@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+</head>
+<body>
+    <input id="txtNumber" type="number" value="0">
+    <button onclick="increaseCount()" id="btn1">arttır</button>
+    
+</body>
+<script>
+    var i=0;
+    function increaseCount(){
+        i++;
+        console.log(i);
+        document.getElementById("txtNumber").value = i;
+    }
+</script>
+</html>
