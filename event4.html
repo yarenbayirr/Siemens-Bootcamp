@@ -100,7 +100,7 @@
               </button>
               <!-- <button id="btnSave" type="button" class="btn btn-primary">
                 Kaydet2 -->
-              </button>
+              
               <button type="reset" class="btn btn-warning">Temizle</button>
             </form>
           </div>
@@ -188,16 +188,17 @@
         //içeriğini resetledik
         tableBody.innerHTML = '';
         //ürün listesini döndük, dönerken tablo satırı oluşturduk
-        productList.forEach(newProduct =>{
-            let newRow = document.createElement("tr");
-            newRow.innerHTML = `
-        <td>${newProduct.name}</td>
-        <td>${newProduct.price}</td>
-        <td>${newProduct.color}</td>
-        <td>${newProduct.ispublish}</td>
-        <td>${newProduct.publishDay}</td>
-        <td><button id="btnUpdate" onclick="btnLoadToForm(${newProduct.id}) type="button" class="btn btn-success">güncelle</button></td>
-        ` //***her ürün eklenirken yanında güncelleme butonu oluşturuyoruz***. onclick event için fonksiyonu yukarıda tanımlamıştık.
+        productList.forEach(newProduct => {
+      let newRow = document.createElement("tr");
+      newRow.innerHTML = `
+      <td>${newProduct.name}</td>
+      <td>${newProduct.price}</td>
+      <td>${newProduct.color}</td>
+      <td>${newProduct.isPublish}</td>
+      <td>${newProduct.publishDay}</td>
+      <td><button id="btnUpdate" onclick="btnLoadToForm(${newProduct.id})" type="button" class="btn btn-success">güncelle</button></td>
+      `;
+        //***her ürün eklenirken yanında güncelleme butonu oluşturuyoruz***. onclick event için fonksiyonu yukarıda tanımlamıştık.
          //append ile birleştirme işlemi yani tabloya ekle diyoruz.
          tableBody.appendChild(newRow);
         })
@@ -250,7 +251,6 @@
           color: color,
           ispublish: ispublish,
           publishDay: publishDay,
-          productId: productId
         };
         try {
           console.log(newProduct);
@@ -278,6 +278,8 @@
         const color = document.querySelector("#dropColorMenu").value;
         const ispublish = document.querySelector("#checkPublish").checked;
         const publishDay = document.querySelector("input[name='radioPublishDay']:checked").value;
+
+        
 
         //globalde tanımladığımız updateProductId değişkenini burada güncellenecek nesneyi bulmak için kullanıyoruz.
         //güncellenecek nesnenin index numarasını alıyoruz
