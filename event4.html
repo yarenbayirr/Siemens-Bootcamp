@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>My Form</title>
     <link rel="stylesheet" href="bootstrap.css" />
+
     <style>
         /* **KENDIMIZ BIR CLASS OLUSTURDUK. ALERTLERIMIZIN GORUNURLUGUNU KONTROL EDIYOR** */
         .custom-hide{
@@ -14,14 +15,26 @@
         .custom-show{
           display: block;
         }
+      
     </style>
   </head>
   <body>
+    <!-- Yeni bir div oluşturduk. Normalde confirm ile hazır bir mesaj verebilirdik ama kendi mesajımızı oluşturduk -->
+    <div class="overlay" id="overlay" hidden>
+      <div class="confirm-box">
+        <div onclick="closeConfirmBox()" class="close">&#10006;</div>
+        <h2>Doğrulama</h2>
+        <p>Seçtiğiniz ürünü kaldırmak istediğinize emin misiniz?</p>
+        <button class="btn btn-danger"onclick="isConfirm(true)">Ürünü Sil</button>
+        <button class="btn btn-light" onclick="isConfirm(false)">İptal</button>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-4 offset-md-4 mt-5">
         <div class="card">
+          <div id="cardHeader"class="card-header text-center text-white"><b style="font-size: large;">ÜRÜN BİLGİLERİ</b></div>
           <div class="card-body">
-            <h5 class="card-title">Ürün Kayıt</h5>
             <div id="result">
             <div id="divSuccess"class="alert alert-success custom-hide" role="alert">Ürün başarılı bir şekilde kaydedildi</div>
             <div id="divFail"class="alert alert-danger custom-hide" role="alert">Bir hata meydana geldi</div>
@@ -30,10 +43,14 @@
               <div class="mb-3">
                 <label for="txtName" class="form-label">Ürün İsmi :</label>
                 <input type="text" class="form-control" id="txtName" />
+                <!-- Başta gizli olacak şekilde inputların altına error message ekledik. Gizlilik ve margin ayarlarını css dosyasında verdik -->
+                <small>Error message</small>
               </div>
               <div class="mb-3">
                 <label for="txtPrice" class="form-label">Ürün Fiyat :</label>
                 <input type="text" class="form-control" id="txtPrice" />
+                <!-- Başta gizli olacak şekilde inputların altına error message ekledik. Gizlilik ve margin ayarlarını css dosyasında verdik -->
+                <small>Error message</small>
               </div>
               <div class="mb-3">
                 <label for="dropColorMenu" class="form-label"
@@ -45,6 +62,8 @@
                   <option value="2">Mavi</option>
                   <option value="3">Yeşil</option>
                 </select>
+                  <!-- Başta gizli olacak şekilde inputların altına error message ekledik. Gizlilik ve margin ayarlarını css dosyasında verdik -->
+                  <small>Error message</small>
               </div>
 
               <div class="mb-3 form-check">
@@ -58,9 +77,13 @@
                 >
               </div>
 
-              <div class="mb-3">
-                <p>Yayınlanma süresini seçiniz</p>
-                <div class="form-check">
+              <!-- publish-hidden sınıfı gizlemek/göstermek için oluşturuldu -->
+              <div id="publishVisibility" class="mb-3 publish-hidden">
+                <p style="margin: 0px;">Yayınlanma süresini seçiniz</p>
+                 <!-- Başta gizli olacak şekilde inputların altına error message ekledik. Gizlilik ve margin ayarlarını css dosyasında verdik -->
+                 <small>Error message</small>
+                <div id="defaultRadio" class="form-check">
+                  
                   <input
                     class="form-check-input"
                     type="radio"
@@ -84,6 +107,7 @@
                 </div>
                 <div class="form-check">
                   <input
+                  
                     class="form-check-input"
                     type="radio"
                     value="45"
@@ -92,22 +116,24 @@
                   <label class="form-check-label" for="flexRadioDefault3"
                     >45 gün</label
                   >
+                    
                 </div>
+               
               </div>
 
-              <button id="btnSaveOrUpdate" onclick="saveOrUpdate()" type="button" class="btn btn-primary">
+              <button id="btnSaveOrUpdate" onclick="saveOrUpdate()" type="button" class="btn btn-darkblue">
                 Kaydet
               </button>
               <!-- <button id="btnSave" type="button" class="btn btn-primary">
                 Kaydet2 -->
               
-              <button type="reset" class="btn btn-warning">Temizle</button>
+              <button id="btnReset" type="reset" class="btn btn-light publish-visible">Temizle</button>
             </form>
           </div>
         </div>
 
         <!-- **EKLENECEK URUNLER ICIN TABLO OLUSTURUYORUZ. BASLIKLARI THEAD ICERISINDE GIRIP BODY KISMINI EVENT ILE DOLDURACAGIZ** -->
-        <table class="table">
+        <table style="margin-top:10px;" class="table">
             <thead>
                 <tr>
                     <th>İsim</th>
@@ -118,29 +144,21 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="tableBody">
+              <tr>
+
+              </tr>
+              
+            </tbody>
+            
         </table>
       </div>
     </div>
   </body>
   <script>
-    //ikinci yöntem id üzerinden elementi yakalayıp addeventlistener methodu ile event ve gerçekleşecek metodu çağırmak
-    // var btnSave = document.querySelector("#btnSave");
-    // btnSave.addEventListener("click", function () {
-    //   console.log("click");
-    // });
-
-    // function dropColorMenuChange() {
-    //   console.log(document.querySelector("#dropColorMenu").value);
-    //   var dropDownColorMenu = document.querySelector("#dropColorMenu");
-    //   let text =
-    //     dropDownColorMenu.options[dropDownColorMenu.selectedIndex].text;
-    //   console.log(text);
-    // }
-
-
-
+   
     //**DEGISKENLERIMIZ**
+    var indexOfDeletedProduct=0; //silinecek ürünün indexini tutalım
     var productIncreaseId=0; //her ürün eklediğimde artacak olan, ürün id lerine karşılık gelen değişken
     var updateProductId = 0; //güncellenecek ürünün id sini yakalayacağımız değişken 
     var productList = []; //ürünleri tutacağımız boş liste
@@ -151,63 +169,123 @@
 
     //**KAYDET BUTONUMUZU YAKALADIK**
     const btnSaveOrUpdate = document.querySelector("#btnSaveOrUpdate")
+
+    //**CHECKBOXU YAKALAYALIM**
+    const chkPublish = document.getElementById("checkPublish");
+    //**RADYO BUTON DIVINI YAKALAYALIM**
+    const radioButtons = document.querySelector("#publishVisibility");
     
     let isSaveOrUpdate = "saveType" //buton kaydetme mi yapacak yoksa güncelleme mi, bunun için değişken atadık. Değişkenin ilk değeri savetype.
     const arrayBtnAction = [
         {key:"saveType", func: save},
         {key:"updateType", func: update}
     ] //nesnelerden oluşan bir dizi oluşturduk. Fonksiyonlara karşılık gelen anahtarlar mevcut. 
+    
+    //**CHECKBOXUN DURUMUNU KONTROL EDEN EVENT**
+      chkPublish.addEventListener('change', function(){
+        if(this.checked){
+         radioButtons.classList.remove("publish-hidden");
+         radioButtons.classList.add("publish-visible");
+        }
+        else{
+          radioButtons.classList.remove("publish-visible");
+         radioButtons.classList.add("publish-hidden");
+        }
+      })
+    
+      //**TEMIZLE BUTONU GUNCELLEME EKRANINDA KAYBOLSUN**
+      function btnResetHide(){
+         document.querySelector("#btnReset").classList.remove("publish-visible");
+         document.querySelector("#btnReset").classList.add("publish-hidden");
 
-
+      }
+      function btnResetVisible(){
+        document.querySelector("#btnReset").classList.remove("publish-hidden");
+         document.querySelector("#btnReset").classList.add("publish-visible");
+      }
+    
     //**GUNCELLENECEK URUNU FORM EKRANINA TAŞIYAN FONKSIYON**
-    function btnLoadToForm(id){
+      function btnLoadToForm(id){
         //fonksiyon dışarıdan id parametresi alıyor. Bu parametre ile artık global alanda tanımladığımız değişkende güncellenecek ürünün id'sini tutuyoruz.
         updateProductId = id;
         btnSaveOrUpdate.textContent = "Güncelle";
         isSaveOrUpdate = "updateType";
         //güncellenecek ürünü id si ile listeden bulup aşağıdaki değişkene atıyoruz.
         const productToUpdate = productList.find(x=>x.id==id);
+  
+        //güncelleme ekranında temizle butonu olmasın
+        btnResetHide();
+        //güncellenecek satırı vurgular
+        highlightTheRow(updateProductId);
+
+        switchUpdateConcept();
 
        //listeden aldığımız ürünün tüm bilgilerini form elemanlarına yazdırıyoruz.
        document.getElementById("txtName").value = productToUpdate.name;
        document.getElementById("txtPrice").value = productToUpdate.price;
        document.querySelector("#dropColorMenu").value = productToUpdate.color;
-       document.querySelector("#checkPublish").checked = productToUpdate.ispublish;
-       //birden çok radyo buton olduğu için hepsini queryselectorall ile alıp diziye attık
+       if(productToUpdate.isPublish == "Evet") {
+        document.querySelector("#checkPublish").checked = true;
+        radioButtons.classList.remove("publish-hidden");
+         radioButtons.classList.add("publish-visible");
+        //birden çok radyo buton olduğu için hepsini queryselectorall ile alıp diziye attık
        const radioButtonArray=document.querySelectorAll("input[name='radioPublishDay']")
        //dizinin elemanlarını döndük ve güncellenmesi istenen üründe seçili ise burda da seçiliyi true yap dedik.
        radioButtonArray.forEach(x=> {
-      if(x.value == productToUpdate.publishDay) x.checked =true;
-      })
+       if(x.value == productToUpdate.publishDay) x.checked =true;
+       })
+       }
+       
+      
+
     }
 
     //**KAYDETE BASTIGIMIZDA URUNU ASAGIYA GETIREN METHOD
     function loadTable(){
-        //html kısmında boş bıraktığımız body kısmını id ile yakaladık
-        const tableBody = document.querySelector("#tableBody")
-        //içeriğini resetledik
-        tableBody.innerHTML = '';
+        
+         //html kısmında boş bıraktığımız body kısmını id ile yakaladık
+         const tableBody = document.querySelector("#tableBody")
+         //tabloyu temizledik
+         tableBody.innerHTML = '';
+         
         //ürün listesini döndük, dönerken tablo satırı oluşturduk
+        var index = tableBody.rows.length-1;
         productList.forEach(newProduct => {
-      let newRow = document.createElement("tr");
-      newRow.innerHTML = `
-      <td>${newProduct.name}</td>
-      <td>${newProduct.price}</td>
-      <td>${newProduct.color}</td>
-      <td>${newProduct.isPublish}</td>
-      <td>${newProduct.publishDay}</td>
-      <td><button id="btnUpdate" onclick="btnLoadToForm(${newProduct.id})" type="button" class="btn btn-success">güncelle</button></td>
-      `;
-        //***her ürün eklenirken yanında güncelleme butonu oluşturuyoruz***. onclick event için fonksiyonu yukarıda tanımlamıştık.
+        let newRow = document.createElement("tr");
+        newRow.innerHTML = `
+        <td>${newProduct.name}</td>
+        <td>${newProduct.price}</td>
+        <td>${newProduct.color}</td>
+        <td>${newProduct.isPublish}</td>
+        <td>${newProduct.publishDay}</td>
+        <td><button id="btnUpdate" onclick="btnLoadToForm(${newProduct.id})" type="button" class="btn btn-yellow">Güncelle</button></td>
+        <td><button id="btnDelete" onclick="deleteProduct(${newProduct.id})" type="button" class="btn btn-danger">Sil</button></td>
+        `;
+        //***her ürün eklenirken yanında güncelleme ve sil butonu oluşturuyoruz***. onclick event için fonksiyonu yukarıda tanımlamıştık.
          //append ile birleştirme işlemi yani tabloya ekle diyoruz.
          tableBody.appendChild(newRow);
         })
+        var newRow2 = tableBody.insertRow(tableBody.rows.length);
+         newRow2.innerHTML = `
+                <th>Toplam Ürün Sayısı</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>${productList.length}</td>
+                `;
     }
 
 
     //**ALERTLERI BASARILI OLDUGUNDA CALISTIRACAK FONKSIYON**
     function showSuccess() {
         divSuccess.classList.remove("custom-hide");
+        divSuccess.classList.add("custom-show");
+    }
+
+    //**GÜNCELLEME ALERTI BAŞARILI OLDUGUNDA CALISTIRACAK FONKSIYON**
+    function showSuccessUpdate() {
+      divSuccess.innerHTML = "Seçilen ürün başarılı bir şekilde güncellendi"
+      divSuccess.classList.remove("custom-hide");
         divSuccess.classList.add("custom-show");
     }
 
@@ -225,50 +303,45 @@
         isSaveOrUpdate = "saveType";
         //ve kaydet olarak görünecek
         btnSaveOrUpdate.textContent = "Kaydet";
+        btnResetVisible(); 
+        
         //alerlet baştaki gibi gözükmeyecek bunun için sınıflarının gizli özelliğe sahip sınıf olması gerekiyor
         setTimeout(function () {
             divSuccess.classList.remove("custom-show");
             divFail.classList.remove("custom-show");
             divSuccess.classList.add("custom-hide");
             divFail.classList.add("custom-hide");
-        }, 2000)
+        }, 3000)
+        
+         radioButtons.classList.remove("publish-visible");
+         radioButtons.classList.add("publish-hidden");
+           
+        
     }
 
     //**YENİ ÜRÜNÜ TÜMÜYLE KAYDEDEN FONKSİYON**
     function save () {
-         //burada formdan gelen özellikleri tuttuk
-        const name = document.getElementById("txtName").value;
-        const price = document.getElementById("txtPrice").value;
-        const color = document.querySelector("#dropColorMenu").value;
-        const ispublish = document.querySelector("#checkPublish").checked;
-        const publishDay = document.querySelector("input[name='radioPublishDay']:checked").value;
-
         productIncreaseId++; //kaydedildiğinde ürün sayısı bir artacak, dolayısıyla ürün id si de.
         //formdan gelen özellikleri yeni nesnemize atadık
-        const newProduct = {
-          name: name,
-          price: price,
-          color: color,
-          ispublish: ispublish,
-          publishDay: publishDay,
-        };
-        try {
-          console.log(newProduct);
+        
+        //checkInputs şartları sağlarsa newProduct nesnesi döner
+        
+          if(checkInputs()){
+          console.log(checkInputs());
           showSuccess();
           //**yeni ürünü listeye burada ekledik**
-          productList.push(newProduct);
+          productList.push(checkInputs());
           //ürün eklendikten sonra bu listeyi dönen ve html elementlerine ekleyen fonksiyonu çağırıyoruz.
           loadTable(); 
-          //son olarak form ekranını resetliyoruz
-          document.querySelector("form").reset;
-        } 
-        catch (error) {
-        showFail();
-        }
-        finally{
-        reset();
+          }
+          
+         else {
+          showFail();
+         }
+          reset();
+               
       }
-    }
+      
 
     //**LİSTEDEKİ ÜRÜNÜ TAMAMEN GÜNCELLEYEBİLDİĞİMİZ FONKSİYON**
     function update () {
@@ -276,39 +349,197 @@
         const name = document.getElementById("txtName").value;
         const price = document.getElementById("txtPrice").value;
         const color = document.querySelector("#dropColorMenu").value;
-        const ispublish = document.querySelector("#checkPublish").checked;
-        const publishDay = document.querySelector("input[name='radioPublishDay']:checked").value;
-
-        
+        let ispublish = document.querySelector("#checkPublish").checked;  
+        let publishDay = document.querySelector("input[name='radioPublishDay']:checked");   
 
         //globalde tanımladığımız updateProductId değişkenini burada güncellenecek nesneyi bulmak için kullanıyoruz.
         //güncellenecek nesnenin index numarasını alıyoruz
         let productToUpdateIndex = productList.findIndex(product=>product.id == updateProductId);
        
         //güncellenecek nesneyi ürün listemizden index numarasına göre çekiyoruz. 
-        productList[productToUpdateIndex].name = name;
-        productList[productToUpdateIndex].price = price;
-        productList[productToUpdateIndex].color = color;
-        productList[productToUpdateIndex].ispublish = ispublish;
-        productList[productToUpdateIndex].publishDay = publishDay;
-
-      try {
-
-         showSuccess();
-         loadTable();
-
-      } 
-      catch (error) {
-       showFail();
-      }
-      finally{
+        if(checkInputs()){
+          productList[productToUpdateIndex].name = checkInputs().name;
+          productList[productToUpdateIndex].price = checkInputs().price;
+          productList[productToUpdateIndex].color = checkInputs().color;
+          productList[productToUpdateIndex].isPublish = checkInputs().isPublish;
+          productList[productToUpdateIndex].publishDay = checkInputs().publishDay;
+          showSuccessUpdate();
+          loadTable();
+          switchSaveConcept();  
+          
+        }
+        else{
+          showFail();
+        }
        reset();
-      }
+       //resetleme yaparken vurgulamayı da kaldırmasını söyledik
+       removeTheHighlight(); 
+       
+       
     }
 
     //**GÜNCELLEME YA DA KAYDET DURUMLARININ BELİRLENDİĞİ FONKSIYON**
     function saveOrUpdate() {
         arrayBtnAction.find(x=>x.key==isSaveOrUpdate).func();
     }
+  
+    //**OLUSTURDUGUMUZ CONFIRM MESAJINI GOSTEREN FONKSIYON**
+    function showConfirmBox() {
+    document.getElementById("overlay").hidden = false;
+  }
+  //**OLUSTURDUGUMUZ CONFIRM MESAJINI KAPATAN FONKSIYON**
+    function closeConfirmBox() {
+    document.getElementById("overlay").hidden = true;
+  } 
+  
+  //**SILME BUTONUNA TIKLANDIGINDA URUNUN ID SINI, BILGISINI TUTACAK VE MESAJI GOSTERECEK**
+     function deleteProduct(id){
+      //silinecek ürünü bulup bir değişkende tutalım.
+       var deletedProduct = productList.find(x=>x.id == id);
+       //silinecek ürünün indexini aldık, aşağıda splice metodunda işe yarayacak
+       indexOfDeletedProduct = productList.findIndex(product=>product.id == deletedProduct.id);
+       //normalde confirm ile düz bir mesaj gönderebilirdik
+      //  var result = confirm(`Seçtiğiniz "${deletedProduct.name}" isimli ürünü kaldırmak istediğinize emin misiniz?`)
+       showConfirmBox();
+    } 
+    //**KULLANICIDAN GELEN ONAYA GORE URUNU SILECEK**
+    function isConfirm(answer) {
+    if (answer) {
+      productList.splice(indexOfDeletedProduct, 1);
+    } 
+    loadTable();
+    closeConfirmBox();
+    }
+    
+    //**GUNCELLENECEK SATIRIN VURGULANMASINI SAGLAYAN FONKSIYON**
+    function highlightTheRow(id) {
+      var highlightedProduct = productList.find(x=>x.id == id);
+      //tüm td elementlerini seçtik bir diziye attık
+
+      var tdArray = document.querySelectorAll("td");
+      //dizinin elemanlarını döndük. Eğer elemanın içeriği ile güncellenecek ürünün adı aynı ise arka planı değiştirecek sınıf ekledik.
+      //NOT: Burada her ürünün ayrı bir adı olacağı varsayılmıştır. 
+      tdArray.forEach(function(td) {
+        if(td.textContent == highlightedProduct.name){
+          td.parentElement.classList.add("table-active")      
+        }
+      })
+    }
+
+    //**GUNCELLEME BITTIKTEN SONRA VURGULAMAYI KALDIRAN FONKSIYON**
+    function removeTheHighlight(){
+      var highlightedRow = document.getElementsByClassName("table-active");
+      highlightedRow.classList.remove("table-active")
+    }
+  
+      //**VALIDASYONLARI KONTROL EDEN FONKSIYON**  
+    function checkInputs() {
+      var name = document.getElementById("txtName");
+      var price = document.getElementById("txtPrice");
+      var color = document.querySelector("#dropColorMenu");
+      var ispublish = document.querySelector("#checkPublish");
+      var publishDay = document.querySelector("#defaultRadio");
+
+      var nameValue = document.getElementById("txtName").value;
+      var priceValue = document.getElementById("txtPrice").value;
+      var colorValue = document.querySelector("#dropColorMenu").value;
+      var ispublishValue;
+      var publishDayValue = "";
+      var newProduct;
+      var checkedRadios = document.querySelectorAll("input[name='radioPublishDay']:checked");
+      if(ispublish.checked && checkedRadios.length > 0 ){
+        publishDayValue = document.querySelector("input[name='radioPublishDay']:checked").value;    
+      }
+      else{
+        newProduct = null;
+      } 
+      if(ispublish.checked){
+        ispublishValue = "Evet"; 
+      }
+      else{
+        ispublishValue = "Hayır";
+        publishDayValue = "Yok";
+      }
+      if(nameValue === ""){
+        setErrorFor(name, "Ürün adı boş geçilemez", "#txtName");
+        newProduct = null;
+        
+      }
+      else if(nameValue.length < 3 || nameValue.length > 10){
+        setErrorFor(name, "Ürün adı için geçersiz karakter sayısı", "#txtName");
+        newProduct = null;
+        
+      }
+      else if(priceValue === ""){
+        setErrorFor(price, "Ürün fiyatı boş geçilemez", "#txtPrice");
+        newProduct = null;
+        
+      }
+      else if(priceValue < 100 || priceValue > 5000){
+        setErrorFor(price, "Ürün fiyatı 100 ile 5000 aralığında olmalıdır", "#txtPrice");
+        newProduct = null;
+        
+      }
+      else if(colorValue === ""){
+        setErrorFor(color, "Ürün renk seçimi zorunludur", "#dropColorMenu");
+        newProduct = null;
+        
+      }
+      else if(ispublish.checked && checkedRadios.length == 0){
+        setErrorFor(publishDay, "Yayınlanma süresi seçimi zorunludur", "#defaultRadio");
+        newProduct = null;
+      }
+     
+      else{
+
+          newProduct = {
+          name: nameValue,
+          price: priceValue,
+          color: colorValue,
+          isPublish: ispublishValue,
+          publishDay: publishDayValue,
+          
+        };
+      }
+      
+      if(newProduct != null){
+        
+        return newProduct;
+        
+      }     
+      
+        
+    }
+    
+    //**VALIDASYON MESAJLARINI KONTROL EDEN FONKSIYON**
+    function setErrorFor(input, message, selector){
+      const formControl = input.parentElement; //gelen inputun kapsayıcısı olan dive ulaştık
+      const small = formControl.querySelector("small"); //kapsayıcı içerisinde mevcut olan small elementine ulaştık
+      small.innerHTML = message; //içeriğe parametre olarak alınan mesaj yazılsın
+      small.classList.add("validation-errorMes");
+      const inputElement = formControl.querySelector(selector); //input elementini aldık
+      inputElement.classList.add("validation-errorInp");
+      setTimeout(function () {
+            // document.querySelectorAll("small").forEach(element => element.classList.remove("validation-errorMes"));
+            // document.querySelectorAll("input").forEach(element => element.classList.remove("validation-errorInp"));
+            small.classList.remove("validation-errorMes");
+            inputElement.classList.remove("validation-errorInp");
+        }, 3000)
+    }
+   
+  function switchUpdateConcept(){
+    btnSaveOrUpdate.classList.remove("btn-primary");
+    btnSaveOrUpdate.classList.add("btn-yellow");
+    document.querySelector("#cardHeader").classList.remove("card-header");
+    document.querySelector("#cardHeader").classList.add("cardheader-yellow");
+
+  }
+  function switchSaveConcept(){
+    btnSaveOrUpdate.classList.add("btn-primary");
+    btnSaveOrUpdate.classList.remove("btn-yellow");
+    document.querySelector("#cardHeader").classList.add("card-header");
+    document.querySelector("#cardHeader").classList.remove("cardheader-yellow");
+  }
   </script>
+
 </html>

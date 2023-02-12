@@ -66,7 +66,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fff;
+  background-color: #edf3f8;
 }
 
 [tabindex="-1"]:focus {
@@ -2506,6 +2506,26 @@ fieldset:disabled a.btn {
   background-color: #007bff;
   border-color: #007bff;
 }
+.btn-darkblue {
+  color: #fff;
+  background-color: #21225f;
+  border-color: #21225f;
+}
+.btn-darkblue:hover {
+  color: #fff;
+  background-color: #080836;
+  border-color: #080836;
+}
+.btn-yellow {
+  color: #fff;
+  background-color: #edca52;
+  border-color: #edca52;
+}
+.btn-yellow:hover {
+  color: #fff;
+  background-color: #caa11c;
+  border-color: #caa11c;
+}
 
 .btn-primary:hover {
   color: #fff;
@@ -4488,8 +4508,9 @@ tbody.collapse.show {
 .card-header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #21225f;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  height: 70px;
 }
 
 .card-header:first-child {
@@ -4497,6 +4518,22 @@ tbody.collapse.show {
 }
 
 .card-header + .list-group .list-group-item:first-child {
+  border-top: 0;
+}
+
+.cardheader-yellow {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #edcb53;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  height: 70px;
+}
+
+.cardheader--yellow:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.cardheader--yellow + .list-group .list-group-item:first-child {
   border-top: 0;
 }
 
@@ -8972,4 +9009,51 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #ddd !important;
   }
 }
+
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+}
+
+.confirm-box {
+  position: absolute;
+  width: 50%;
+  height: 25%;
+  top: 25%;
+  left: 25%;
+  text-align: center;
+  background: white;
+}
+
+.close {
+  cursor: pointer;
+}
+
+/* error mesajları en başta gözükmeyen şekilde ayarlandı */
+small{
+  margin-bottom: 30px;
+  visibility: hidden;
+}
+/* visibility sınıfları */
+.publish-hidden{
+  visibility: hidden;
+}
+.publish-visible{
+  visibility: visible;
+}
+/* validasyon-error mesajı verildiğinde inputun çerçevesi için sınıf */
+.validation-errorInp{
+  border-color: #e74c3c;
+}
+.validation-errorMes{
+  color:#e74c3c;
+  visibility: visible;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
