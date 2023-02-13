@@ -1,0 +1,65 @@
+<html>
+  <head> </head>
+  <body></body>
+  <script>
+    // var person = { name: "ahmet", surname: "yıldız", age: 23 } //object
+    // var personAsJson = { "name": "ahmet", "surname": "yıldız", "age": 23}
+
+    // console.log(person.name);
+    // console.log(person["name"]);
+
+    // for (let prop in person) {
+    //     console.log(person[prop])   
+    // }
+    //add prop
+    person.color = "red";
+    //remove prop
+    delete person.color;
+
+    var product = {
+        name: "kalem",
+        colors: {
+            color1: "red",
+            color2: "blue",
+            color3: "green"
+        },
+        stock: [{
+            abd: 40,
+            turkey: 200
+        }],
+        show: function() {
+            return `${this.name} ${this.colors.color1}`
+        }
+
+    }
+
+    product.calculate = function () {
+        return this.stock[0].turkey + this.stock[0].abd
+    }
+    var person = {
+        name: "ahmet",
+        surname: "yıldız",
+        age: 23,
+        set setAge(age) {this.age = age},
+        get fullName2(){
+            return `${this.name} ${this.surname}`;
+        },
+        fullName: function (){
+            return `${this.name} ${this.surname}`;
+        }
+    }; //object
+
+    person.name = "mehmet";
+    console.log(person.name);
+    console.log(person.fullName2);
+
+    person.setAge = 30;
+    console.log(`setAge:${person.setAge} `)
+    person.fullName2 = "hasan"
+    console.log(person.fullName2);
+
+    console.log(Object.values(person));
+
+
+  </script>
+</html>
