@@ -1,0 +1,29 @@
+OOP Concepts
+-Abstraction
+-Encapsulation
+-Inheritance
+-Polymorphism
+
+SOLID Design Pattern (OIC/HAS-A/IS-A)
+
+data types
+-reference types (class, array, delegate, event, object, string) -- heap
+-value/primitive types (bool, datetime, long, short, int, interface) --stack
+
+heap bölgesindeki dataya ulaşmak stack bölgesindekinden daha zordur.
+Referans tipler üzerinde sadece pointer taşınır. Herhangi bir değişiklikte pointerlara atanır. Data taşıma işleminde herhangi bir hız kaybı olmaz. 
+
+heap bölgesinde bulunan artık kullanılmayan veriler belli aralıklarla garbage collector ile silinir. 
+
+pure function
+function (int a, int b){
+    return a+b;
+}
+impure function
+var kdv=18;
+function A(int a, int b){
+    return (a+b)*kdv;
+}
+function B(){
+    kdv=15;
+}
