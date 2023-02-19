@@ -1,4 +1,4 @@
-abstract class BasePerson{
+abstract class BasePerson{ //başka bir classı içerir
     public _native : INative
     public _work : IWork
     constructor(native: INative, work: IWork){

@@ -5,7 +5,7 @@ interface IFeed{
      Feed():string;
 }
 
-abstract class BaseAnimal{
+abstract class BaseAnimal{  //başka bir classı içerir
     _move : IMove;
     _feed : IFeed;
     constructor(move: IMove, feed : IFeed){
