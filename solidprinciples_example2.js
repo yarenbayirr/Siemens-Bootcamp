@@ -1,9 +1,11 @@
 // Menu, Extra ve Order sınıflarımız sadece property tutmaktadır.Gerekli işlemler için methodlar barındıran sınıflar oluşturulmuştur. Örneğin repository sınıfında daha çok database i ilgilendiren işlemler tutulmaktadır. (Single-responsibility)
-//BaseProduct classında gereksiz bir kod ya da method bulunmamaktadır. Ana proplar tanımlanmıştır. Bu da Lıskov's Substitution Principle ile tutarlıdır.
 //Ara yüzlere ortak olabileceği düşünülen methodlar tanımlanmıştır. Örneğin database'i ilgilendirenler ve hesaplamaların olduğu işlemlerin her biri için ayrı interfaceler oluşturulmuştur. (IMenuCalculate, IOrderCalculator)
 class BaseProduct {
 }
 class Menu extends BaseProduct {
+    ShowMySelection() {
+        console.log(`Your selection is ${this.name}`);
+    }
 }
 class Extra extends BaseProduct {
 }
@@ -52,6 +54,7 @@ class OrderDatabase1Repository {
         orders.splice(deletedOrder, 1);
     }
 }
+//methodları çalıştıracağım sınıfımla methodlarımın olduğı sınıf arasında interface bulunmaktadır. Böylelikle bağımlılığı azaltmış olduk. (Dependency Inversion Principle)
 class OrderService {
     constructor(orderRepository) {
         this._orderRepository = orderRepository;

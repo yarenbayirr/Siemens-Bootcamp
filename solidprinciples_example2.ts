@@ -1,29 +1,27 @@
 
 // Menu, Extra ve Order sınıflarımız sadece property tutmaktadır.Gerekli işlemler için methodlar barındıran sınıflar oluşturulmuştur. Örneğin repository sınıfında daha çok database i ilgilendiren işlemler tutulmaktadır. (Single-responsibility)
-//BaseProduct classında gereksiz bir kod ya da method bulunmamaktadır. Ana proplar tanımlanmıştır. Bu da Lıskov's Substitution Principle ile tutarlıdır.
+
 //Ara yüzlere ortak olabileceği düşünülen methodlar tanımlanmıştır. Örneğin database'i ilgilendirenler ve hesaplamaların olduğu işlemlerin her biri için ayrı interfaceler oluşturulmuştur. (IMenuCalculate, IOrderCalculator)
 class BaseProduct{
     id: number;
     name: string;
     price: number;
 }
-class Menu extends BaseProduct{
-    id: number;
-    name: string;
-    price: number;
+class Menu extends BaseProduct implements IMenuDatabase1Repository{ //örneğin sadece seçtiği menyü göstermek istiyorum. Yeni bir interface ile sınıfıma bu methodu ekleyebilirim. Liskov Substitution Prensibi ile tutarlıdır. 
+    ShowMySelection() {
+        console.log(`Your selection is ${this.name}`);
+    }  
 }
 class Extra extends BaseProduct{
-    id: number;
-    name: string;
-    price: number;
+  
 }
 enum MenuSize{
     Small,
     Medium,
     Big
 }
-//Menü fiyatı enumdan gelen bilgiye göre şekillenecek. If-else bloğu yazmamak için size bilgisine göre hesaplama yapan sınıflar oluşturduk. Bu sınıflarda ortak method olduğu için implementasyon yapılacak ortak bir interface oluşturduk. Böylece enuma XL gibi bir size gelirse var olan kodlara dokunulmayacak. (Open-close principle)
-interface IMenuCalculate{
+//Menü fiyatı enumdan gelen bilgiye göre şekillenecek. If-else bloğu yazmamak için "size" bilgisine göre hesaplama yapan sınıflar oluşturduk. Bu sınıflarda ortak method olduğu için implementasyon yapılacak ortak bir interface oluşturduk. Böylece enuma XL gibi bir size gelirse var olan kodlara dokunulmayacak. (Open-close principle)
+interface IMenuCalculate{  //özelleşmiş interface oluşturulmuştur. (Interface Segregation Principle)
     CalculateMenu(price : number);
 }
 class SmallSizeMenuCalculate implements IMenuCalculate{
@@ -35,7 +33,6 @@ class MediumSizeMenuCalculte implements IMenuCalculate{
     CalculateMenu(price: number) {
         return price * 1.5;
     }
-
 }
 class BigSizeMenuCalculte implements IMenuCalculate{
     CalculateMenu(price: number) {
@@ -63,10 +60,11 @@ class Order{
         let currentMenu = arrMenuTypes.find(x=>x.menuSize == this.size);
         let totalMenuPrice = (currentMenu?.menuCalculate.CalculateMenu(this.selectedMenu.price) + this.selectedExtra.price) * this.quantity;
         return totalMenuPrice;
-     }
-     
+     }  
  }
-
+ interface IMenuDatabase1Repository{
+    ShowMySelection();
+ }
  interface IOrderDatabase1Repository{
     Save(order: Order);
     ShowDetails(order: Order);
@@ -106,6 +104,7 @@ class Order{
  myMenu.id = 1;
  myMenu.name = "Texas Smokehouse";
  myMenu.price = 150;
+ 
 
 
  let myExtra = new Extra();
