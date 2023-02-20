@@ -1,0 +1,17 @@
+/* ul{
+    background-color: blue;
+    color: white;
+} */
+.box{
+    background-color: blue;
+    width: 200px;
+    height: 200px;
+}
+.box2{
+  border: 1px solid red;
+}
+.box3{
+    background-color: blueviolet;
+    width: 200px;
+    height: 200px;
+}
