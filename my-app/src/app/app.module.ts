@@ -3,23 +3,32 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InlineComponent } from './components/inline-component/inline.component';
-import { NormalComponent } from './components/normal/normal/normal.component';
-import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
-import { ExampleComponent } from './components/example/example.component';
+import { HomeComponent } from './pages/home/home.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { AboutComponent } from './pages/about/about.component';
+import { AdminModule } from './admin/admin.module';
+import { SharedModule } from './shared/shared.module';
+
+
 
 @NgModule({
   declarations: [ //componentlerin eklendiği yer
-    AppComponent,
-    InlineComponent,
-    NormalComponent,
-    StructuralDirectiveComponent,
-    ExampleComponent
+    AppComponent, 
+    HomeComponent, 
+    GalleryComponent, 
+    ContactComponent, 
+    AboutComponent
+  
   ],
   imports: [  //modullerin eklendiği yer
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AdminModule,
+    SharedModule
+
   ],
+ 
   providers: [],
   bootstrap: [AppComponent]
 })
