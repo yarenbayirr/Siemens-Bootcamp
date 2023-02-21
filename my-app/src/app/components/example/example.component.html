@@ -1,6 +1,7 @@
 <p>İsimler</p>
-<input type="text" #txtName> <button (click)="add(txtName.value)">Ekle</button>
+<input type="text" #txtName>
+ <button (click)="add(txtName.value)">Ekle/Güncelle</button>
 <hr>
-<div *ngFor="let name of names">
-    {{name}}
+<div *ngFor="let name of names; let i = index">
+    {{name}} <button (click)= "remove(name)">Sil</button> <button (click) ="txtName.value = name; indexToUpdate = i">Güncelle</button>
 </div>

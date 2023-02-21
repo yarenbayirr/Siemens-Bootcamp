@@ -7,6 +7,11 @@ import { InlineComponent } from './components/inline-component/inline.component'
 import { NormalComponent } from './components/normal/normal/normal.component';
 import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
 import { ExampleComponent } from './components/example/example.component';
+import { CustomDirective } from './directives/custom.directive';
+import { ExamplePipeComponent } from './pipes/example-pipe/example-pipe.component';
+import { CustomUppercasePipe } from './pipes/custom-uppercase.pipe';
+import { CustomerModule } from './customer/customer.module';
+import { OrderListComponent } from './order/order-list/order-list.component';
 
 @NgModule({
   declarations: [ //componentlerin eklendiği yer
@@ -14,11 +19,16 @@ import { ExampleComponent } from './components/example/example.component';
     InlineComponent,
     NormalComponent,
     StructuralDirectiveComponent,
-    ExampleComponent
+    ExampleComponent,
+    CustomDirective,
+    ExamplePipeComponent,
+    CustomUppercasePipe,
+    OrderListComponent
   ],
   imports: [  //modullerin eklendiği yer
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CustomerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

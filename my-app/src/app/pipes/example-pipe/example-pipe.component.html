@@ -1,0 +1,29 @@
+<h2>Json Pipe</h2>
+<p>{{product | json}}</p>
+<h2>Uppercase Pipe</h2>
+<p>{{name | uppercase}}</p> <!--direkt büyük harf yapıyor-->
+<p>{{name | lowercase}}</p>  <!--direkt küçük harf yapıyor-->
+<p>{{name | titlecase}}</p>
+<h2>Date pipe</h2>
+<p>{{currentDate | date: 'd/M/y'}}</p>
+<p>{{currentDate | date: 'dd/MM/yyyy'}}</p>
+<p>{{currentDate | date: 'dd.MM.yyyy'}}</p>
+<p>{{currentDate | date: 'dd-MM-yyyy'}}</p>
+<p>{{currentDate | date: 'longDate'}}</p>
+<p>{{currentDate | date: 'fullDate'}}</p>
+<p>{{currentDate | date: 'shortTime'}}</p>
+<h2>Currency Pipe</h2>
+<p>{{price | currency}}</p>
+<p>{{price | currency: 'EUR'}}</p>
+<p>{{price | currency: 'TRY'}}</p>
+<h2>Decimal Pipe</h2>
+<p>{{5.123456789 | number: '1.0-5'}}</p>
+<p>{{5.123456789 | number: '3.0-5'}}</p>
+<p>{{5.1 | number: '3.0-5'}}</p>
+<h2>Slice pipe</h2>
+<p>{{'Angular' | slice: 2: 4}}</p>  <!--2. indeks dahil 4. indekse kadar ama 4 dahil değil-->
+<p>{{[0,1,2,3,4,5,6] | slice: 0: 4}}</p>
+<h2>Percent Pipe</h2>
+<p>{{0.12345 | percent: '3.0-1'}}</p>
+<h2>Custom Pipe</h2> <!--bizim sonradan ürettiğimiz pipe-->
+<p>{{'Angular' | customUppercase }}</p> <!--ts dosyasındaki name ini yazdık -->
