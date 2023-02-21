@@ -12,6 +12,7 @@ import { ExamplePipeComponent } from './pipes/example-pipe/example-pipe.componen
 import { CustomUppercasePipe } from './pipes/custom-uppercase.pipe';
 import { CustomerModule } from './customer/customer.module';
 import { OrderListComponent } from './order/order-list/order-list.component';
+import { CustomPasswordPipe } from './pipes/custom-password.pipe';
 
 @NgModule({
   declarations: [ //componentlerin eklendiği yer
@@ -23,7 +24,8 @@ import { OrderListComponent } from './order/order-list/order-list.component';
     CustomDirective,
     ExamplePipeComponent,
     CustomUppercasePipe,
-    OrderListComponent
+    OrderListComponent,
+    CustomPasswordPipe
   ],
   imports: [  //modullerin eklendiği yer
     BrowserModule,
