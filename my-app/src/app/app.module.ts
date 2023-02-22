@@ -3,18 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InlineComponent } from './components/inline-component/inline.component';
-import { NormalComponent } from './components/normal/normal/normal.component';
-import { StructuralDirectiveComponent } from './components/structural-directive/structural-directive.component';
-import { ExampleComponent } from './components/example/example.component';
+import { ParentEmployeeComponent } from './input-output-employee/parent-employee/parent-employee.component';
+import { ChildEmployeeComponent } from './components/child-employee/child-employee.component';
+import { ChildEmployeeDetailComponent } from './input-output-employee/components/child-employee-detail/child-employee-detail.component';
+
 
 @NgModule({
   declarations: [ //componentlerin eklendiği yer
-    AppComponent,
-    InlineComponent,
-    NormalComponent,
-    StructuralDirectiveComponent,
-    ExampleComponent
+    AppComponent, ParentEmployeeComponent, ChildEmployeeComponent, ChildEmployeeDetailComponent,
   ],
   imports: [  //modullerin eklendiği yer
     BrowserModule,
