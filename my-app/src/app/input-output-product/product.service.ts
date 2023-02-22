@@ -8,8 +8,12 @@ import { ProductRepository } from './product-repository';
 })
 export class ProductService {
 
-  constructor(private productRepository:ProductRepository, @Inject('BASE_API_URL') private baseUrl: string, @Inject('MENU_FEATURE') : boolean) {
+  constructor(
+    private productRepository:ProductRepository, 
+    @Inject('BASE_API_URL') private baseUrl: string, 
+    @Inject('MENU_FEATURE') private menuFeature: boolean) {
     console.log(`baseUrl: ${baseUrl}`);
+    console.log(`menuFeature: ${menuFeature}`);
    }
   getAll(): ReadonlyArray<Product>{
     let productList : Product[] = [];

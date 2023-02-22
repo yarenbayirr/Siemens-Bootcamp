@@ -1,15 +1,19 @@
 import { Product } from "./models/product";
 import { Injectable } from "@angular/core";
+@Injectable({
+    providedIn: 'root',
+  })
 export class ProductRepository {
     private productList: Product[] = [];
-    constructor(){
-        this.load()
-    }
     load(){
         this.productList.push({id:1, name: "kalem 1", price:100, stock:20, category: "kalemler", color: "kırmızı"})
         this.productList.push({id:2, name: "kalem 2", price:200, stock:30, category: "kalemler", color: "mavi"})
         this.productList.push({id:3, name: "kalem 3", price:300, stock:40, category: "kalemler", color: "yeşil"})
     }
+    constructor(){
+        this.load()
+    }
+   
     getList(){
         return this.productList as ReadonlyArray<Product>;
 

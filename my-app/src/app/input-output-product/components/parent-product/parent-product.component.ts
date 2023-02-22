@@ -16,6 +16,7 @@ export class ParentProductComponent {
     constructor(private productService: ProductService, private productService2: RealProductAPIService){ //newleden product service private olarak constructorda aldık
 
       this.productList = this.productService.getAll();
+      console.log(productService2.getAll());
     }
     showDetail(productId : number){
         this.selectedProduct = this.productService.getById(productId);
