@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-child-employee',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./child-employee.component.css']
 })
 export class ChildEmployeeComponent {
-
+  @Input() employeeList : ReadonlyArray<Employee> | undefined
 }

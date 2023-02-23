@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-child-employee-detail',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./child-employee-detail.component.css']
 })
 export class ChildEmployeeDetailComponent {
+  @Input() selectedEmployee : Employee | undefined;
 
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EmployeeService } from '../../employee.service';
+import { Employee } from '../../models/employee';
 
 @Component({
   selector: 'app-parent-employee',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./parent-employee.component.css']
 })
 export class ParentEmployeeComponent {
+  employeeList : ReadonlyArray<Employee>
+  constructor(private employeeService : EmployeeService) {
 
+    this.employeeList = employeeService.getAllDetails();
+  
+  }
 }
