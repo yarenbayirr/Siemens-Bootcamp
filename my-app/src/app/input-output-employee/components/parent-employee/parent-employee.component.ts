@@ -9,9 +9,16 @@ import { Employee } from '../../models/employee';
 })
 export class ParentEmployeeComponent {
   employeeList : ReadonlyArray<Employee>
+  selectedEmployee : Employee | undefined
   constructor(private employeeService : EmployeeService) {
 
     this.employeeList = employeeService.getAllDetails();
   
+  }
+  showDetail(employeeId : number){
+     this.selectedEmployee = this.employeeService.getById(employeeId);
+  }
+  get toggleEmployeeDetail(){
+    return this.selectedEmployee != undefined;
   }
 }

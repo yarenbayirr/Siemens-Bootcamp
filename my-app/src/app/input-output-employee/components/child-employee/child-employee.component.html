@@ -17,7 +17,7 @@
           <td>{{employee.name}}</td>
           <td>{{employee.surname}}</td>
           <td>{{employee.email}}</td>
-          <td><button class="btn btn-light">Details</button></td>
+          <td><button (click) ="showDetail(employee.id)" class="btn btn-light">Details</button></td>
         </tr>
       </tbody>
     </table>

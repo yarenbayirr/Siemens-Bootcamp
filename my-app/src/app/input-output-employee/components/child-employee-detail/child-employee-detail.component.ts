@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Employee } from '../../models/employee';
 
 @Component({
@@ -8,5 +8,8 @@ import { Employee } from '../../models/employee';
 })
 export class ChildEmployeeDetailComponent {
   @Input() selectedEmployee : Employee | undefined;
-
+  @Output() closeEventClick = new EventEmitter();
+  close(){
+    this.closeEventClick.emit();
+  }
 }

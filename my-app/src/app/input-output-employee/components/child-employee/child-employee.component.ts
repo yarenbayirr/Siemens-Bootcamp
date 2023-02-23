@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Employee } from '../../models/employee';
 
 @Component({
@@ -7,5 +7,11 @@ import { Employee } from '../../models/employee';
   styleUrls: ['./child-employee.component.css']
 })
 export class ChildEmployeeComponent {
-  @Input() employeeList : ReadonlyArray<Employee> | undefined
+  selectedId: number | undefined;
+  @Input() employeeList : ReadonlyArray<Employee> | undefined;
+  @Output() detailbtnClick = new EventEmitter<number>();
+  showDetail(id: number){
+    this.selectedId = id;
+    this.detailbtnClick.emit(this.selectedId);
+  }
 }

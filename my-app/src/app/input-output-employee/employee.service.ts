@@ -25,6 +25,7 @@ export class EmployeeService {
   }
   getById(id: number){
     return this.employeeRepository.getById(id);
+    
   }
   add(newEmployee: Employee){
      this.employeeRepository.add(newEmployee);
