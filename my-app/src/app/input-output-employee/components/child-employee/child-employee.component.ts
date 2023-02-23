@@ -7,11 +7,14 @@ import { Employee } from '../../models/employee';
   styleUrls: ['./child-employee.component.css']
 })
 export class ChildEmployeeComponent {
-  selectedId: number | undefined;
+  @Input() selectedId: number | undefined;
   @Input() employeeList : ReadonlyArray<Employee> | undefined;
   @Output() detailbtnClick = new EventEmitter<number>();
   showDetail(id: number){
     this.selectedId = id;
     this.detailbtnClick.emit(this.selectedId);
+  }
+  highlight(employeId: number){
+    return this.selectedId == employeId;
   }
 }

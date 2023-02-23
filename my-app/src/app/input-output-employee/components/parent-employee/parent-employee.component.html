@@ -6,9 +6,10 @@
   </div>
 </div>
 <div>
-    <app-child-employee (detailbtnClick) = "showDetail($event)" [employeeList] = "employeeList" ></app-child-employee>  <!--childaki listemi parent a bu şekilde taşıyorum-->
+  
+    <app-child-employee [selectedId]="selectedEmployee?.id"    (detailbtnClick) = "showDetail($event)" [employeeList] = "employeeList" ></app-child-employee>  <!--childaki listemi parent a bu şekilde taşıyorum-->
 </div>
 <div>
- <app-child-employee-detail  [selectedEmployee]="selectedEmployee"></app-child-employee-detail>
+ <app-child-employee-detail (closeEventClick)="close()" *ngIf="toggleEmployeeDetail" [selectedEmployee]="selectedEmployee"></app-child-employee-detail>
 </div>
 

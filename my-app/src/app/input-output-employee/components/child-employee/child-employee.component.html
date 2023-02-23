@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of employeeList">
+        <tr [ngClass]="{'selected': highlight(employee.id)}" *ngFor="let employee of employeeList" >
           <th>{{employee.identityNo}}</th>
           <td>{{employee.name}}</td>
           <td>{{employee.surname}}</td>

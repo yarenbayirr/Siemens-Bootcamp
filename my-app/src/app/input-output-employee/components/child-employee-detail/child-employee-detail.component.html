@@ -1,8 +1,9 @@
 <div class="container">
     <div class="col-md-6 offset-md-3">
-        <div class="card">
+        <div class="card myTable">
             <div class="card-body">
-             <h5 class="card-title mb-4">Employee Details</h5>
+                <button class="btn btn-light"(click) = "close()" style="float: right;">Close</button>
+             <h5 class="card-title mb-4 mt-5">Employee Details</h5>
              <p>IdentityNo: {{selectedEmployee?.identityNo}}</p>
              <p>Name: {{selectedEmployee?.name}}</p>
              <p>Surname: {{selectedEmployee?.surname}}</p>

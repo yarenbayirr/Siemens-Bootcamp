@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,8 +15,7 @@ import { ParentEmployeeComponent } from './input-output-employee/components/pare
     AppComponent, ParentEmployeeComponent, ChildEmployeeComponent, ChildEmployeeDetailComponent
   ],
   imports: [  //modullerin eklendiği yer
-    BrowserModule,
-    AppRoutingModule
+  BrowserModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

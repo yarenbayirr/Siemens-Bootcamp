@@ -21,4 +21,7 @@ export class ParentEmployeeComponent {
   get toggleEmployeeDetail(){
     return this.selectedEmployee != undefined;
   }
+  close(){
+    this.selectedEmployee = undefined;
+  }
 }
