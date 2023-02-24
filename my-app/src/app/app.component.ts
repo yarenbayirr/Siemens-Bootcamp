@@ -116,8 +116,41 @@ export class AppComponent {
     //   });
     // })
 
-    this.fakeService.getPosts().subscribe(x=>{
-     console.log(x);
-    })
+    // this.fakeService.getPosts().subscribe(x=>{
+    //  console.log(x);
+    // })
+
+
+    // this.fakeService.GetPostWithHeader().subscribe(x=>{
+    //   console.log(x);
+    //  })
+
+    //  this.fakeService.SavePostWithError({id:1, title:'title 1', body: 'body 1', userId:2}).subscribe({
+    //   next: (data) => console.log(data),
+    //   error: (err) => console.log(err.message),
+    //   complete: () => console.log("tamamlandı")
+    //  })
+
+
+    //  this.fakeService.UpdatePut({id:1, title:'title 1', body: 'body 1', userId:2}).subscribe({
+    //   next: (data) => console.log(data),
+    //   error: (err) => console.log(err.message),
+    //   complete: () => console.log("tamamlandı")
+    //  })
+
+    //  //arka arkaya istek atmak almak, çok sürdülebilir değil !!! (aşağıdaki kod)
+    //  this.fakeService.getParallelRequest().postObservable.subscribe(x=>console.log(x))
+    //  this.fakeService.getParallelRequest().userObservable.subscribe(x=>console.log(x))
+
+    //  //aynı anda aşağıdaki kod
+    //  this.fakeService.getParallelRequestWithForkJoin().subscribe(x=>console.log(x.posts));
+
+    //  this.fakeService.getUserWithUserId(1).subscribe(x=>{
+    //   console.log(x);
+    //  })
+
+     this.fakeService.getAlbumWithUserId(1).subscribe(x=>{
+      console.log(x);
+     })
   }
 }
