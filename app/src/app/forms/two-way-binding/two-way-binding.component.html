@@ -1,0 +1,7 @@
+<p>two-way-binding works!</p>
+<form>
+    <input name="txtName" type="text"  [(ngModel)] = "name"> <!--canlı olarak anlık değişmesi için dışına parantez koyduk-->
+    <h2>{{name}}</h2>
+
+    <button (click)="change()">Değiştir</button>
+</form>
