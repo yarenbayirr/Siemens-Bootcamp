@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemplateDrivenComponent } from './forms/template-driven/template-driven.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TwoWayBindingComponent } from './forms/two-way-binding/two-way-binding.component';
+
 import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TemplateDrivenComponent,
-    TwoWayBindingComponent,
     ReactiveFormsComponent
     
   ],

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { CategoryMenu } from 'app/models/category-menu';
-import { Product } from 'app/models/product';
-import { PublishMenu } from 'app/models/publish-menu';
-import { barcodeValidator} from 'app/validations/barcode-validator';
+import { User } from 'app/models/user';
+import { emailValidator } from 'app/validations/email-validator';
+import { passwordValidator } from 'app/validations/password-validator';
+import { PublishStartEndDataValidator } from 'app/validations/publish-start-end-date-validator';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -11,62 +11,43 @@ import { barcodeValidator} from 'app/validations/barcode-validator';
   styleUrls: ['./reactive-forms.component.css']
 })
 export class ReactiveFormsComponent {
-  newProduct : Product | undefined = undefined;
-productForm = this.formBuilder.group({
-  name: ['', [Validators.required, Validators.minLength(5)]],
-  price: [0,[Validators.required, Validators.min(100),Validators.max(1000)]],
-  stock: [0, [Validators.required, Validators.min(10),Validators.max(1000)]],
-  category: ['', Validators.required],
-  publish: ["2"],
+  newUser : User | undefined = undefined;
+  userForm = this.formBuilder.group({
+  email: ['', [Validators.required, emailValidator()]],
   isPublish:[false],
-  barcode: ['', [Validators.required, barcodeValidator()]],
-  publishStartDate: [ new Date(), [Validators.required]],
-  publishEndDate: [new Date(), [Validators.required]],
-},{Validators: PublishStartEndDateValidator()});
-
-categoryMenuList : CategoryMenu[] = [
-  {id:1, text:"kalemler"},
-  {id:2, text:"defterler"},
-  {id:3, text:"silgiler"},
-];
-
-publishMenuList: PublishMenu[] = [
-  {id:1, text:"3 ay"},
-  {id:2, text:"6 ay"},
-  {id:3, text:"9 ay"},
-]
+  password: ['', [Validators.required, passwordValidator()]],
+},);
 
 
 constructor(private formBuilder: FormBuilder){
 
 }
 save(){
-  this.newProduct = this.productForm.value as Product;
-  console.log(this.newProduct);
+  this.newUser = this.userForm.value as User;
+  console.log(this.newUser);
 }
 isInvalid(controlName: string) : boolean{
-  let control = this.productForm.get(controlName)!;
+  let control = this.userForm.get(controlName)!;
   if(!(control.invalid && (control.dirty || control.touched))) return false;
   if(control.errors?.['required']) return true;
   if(control.errors?.['minlength']) return true;
   if(control.errors?.['maxlength']) return true;
   if(control.errors?.['max']) return true;
   if(control.errors?.['min']) return true;
-  if(control.errors?.['barcodeFormat']) return true;
+  if(control.errors?.['passwordFormat']) return true;
+  if(control.errors?.['emailFormat']) return true;
   return false;
 }
 isValid(controlName : string){
-  let control = this.productForm.get(controlName)!;
+  let control = this.userForm.get(controlName)!;
   return control.valid && (control.dirty || control.touched);
 }
 getControl(controlName:string){
-  return this.productForm.get(controlName)!;
+  return this.userForm.get(controlName)!;
 }
 isInvalidControl(controlName:string, validationName:string){
   return this.getControl(controlName).errors?.[validationName];
 }
 }
-function PublishStartEndDateValidator(): any {
-  throw new Error('Function not implemented.');
-}
+
 
