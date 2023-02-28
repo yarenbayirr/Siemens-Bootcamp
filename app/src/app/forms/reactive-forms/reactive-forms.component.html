@@ -1,37 +1,44 @@
-<p>reactive-forms works!</p>
+
 <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
+  <div class="row" style="height: 100px;"></div>
+    <div class="row" style="height: 500px;">
+      <div class="col-md-4 offset-md-4 p-5" style="border: 1px solid rgb(168, 165, 165); border-radius: 5%;">
+        
         <form [formGroup]="userForm" (ngSubmit)="save()">
           <div>
-            <h3>Kullanıcı Giriş</h3>
+            <h3 style="text-align: center;">Welcome!</h3>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">Email :</label>
-            <input formControlName="email" type="text" class="form-control" />
+          <div class="mb-3 mt-5">
+            <input [ngClass]="{'input-danger' : isInvalid('email')}" formControlName="email" type="text" class="form-control" placeholder="E-mail"/>
             <div class="form-text text-danger">
               <div *ngIf="isInvalid('email')">
                 <div *ngIf="isInvalidControl('email', 'required')">
-                    Email alanı gereklidir.
+                    Email is required.
                   </div>
                   <div *ngIf="isInvalidControl('email', 'emailFormat')">
-                    Email doğru formatta değil.
+                    Email is not in a correct format.
+                  </div>
+                  <div *ngIf="!isInvalidControl('email', 'isEmailMatch')">
+                    The mail is not exist.
                   </div>
               </div>
+             
             </div>
           </div>
   
-          <div class="mb-3">
-            <label class="form-label">Şifre :</label>
-            <input formControlName="password" type="text" class="form-control" />
+          <div class="mb-3 mt-4">
+            <div style="position: relative">
+            <input [ngClass]="{'input-danger' : isInvalid('password')}"formControlName="password" [type]="hide ? 'password' : 'text'" class="form-control" placeholder="Password" />
+            <img src="assets/images/2710662.png" alt="" width="25px" style="position:absolute; left:305px; top: 6px" (click)="ShowPassword()">
+            </div>
             <div class="form-text text-danger">
               <div *ngIf="isInvalid('password')">
                 <div *ngIf="isInvalidControl('password', 'required')">
-                  Şifre alanı gereklidir.
+                  Password is required.
                 </div>
                 <div *ngIf="isInvalidControl('password', 'passwordFormat')">
-                  Şifre doğru formatta değil.
+                  Password is not in a correct format.
                 </div>
               </div>
             </div>
@@ -42,14 +49,17 @@
             <input
               type="checkbox"
               class="form-check-input"
-              formControlName="isPublish"
+              formControlName="rememberMe"
             />
             <label class="form-check-label" for="exampleCheck1"
-              >Beni hatırla?</label
+              >Remember me</label
             >
           </div>
-          <button type="submit" class="btn btn-primary">Giriş Yap</button>
+          <div>
+          <button type="submit" class="btn btn-primary mt-4" style="width: 100%;">Giriş Yap</button>
+        </div>
         </form>
+      
       </div>
     </div>
   </div>

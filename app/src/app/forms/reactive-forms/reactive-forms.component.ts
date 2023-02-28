@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { User } from 'app/models/user';
 import { emailValidator } from 'app/validations/email-validator';
+import { IsEmailExistValidator } from 'app/validations/is-email-exist-validator';
 import { passwordValidator } from 'app/validations/password-validator';
-import { PublishStartEndDataValidator } from 'app/validations/publish-start-end-date-validator';
+import { UserService } from './user.service';
+
 
 @Component({
   selector: 'app-reactive-forms',
@@ -13,18 +15,25 @@ import { PublishStartEndDataValidator } from 'app/validations/publish-start-end-
 export class ReactiveFormsComponent {
   newUser : User | undefined = undefined;
   userForm = this.formBuilder.group({
-  email: ['', [Validators.required, emailValidator()]],
-  isPublish:[false],
+  email: ['', [Validators.required, emailValidator(), IsEmailExistValidator(this.userService)],
+],
+  rememberMe:[false],
   password: ['', [Validators.required, passwordValidator()]],
 },);
 
 
-constructor(private formBuilder: FormBuilder){
+constructor(private formBuilder: FormBuilder, private userService: UserService){
 
 }
 save(){
+  if(this.userForm.invalid){
+    alert("Please fill in all fields");
+    return;
+  }
   this.newUser = this.userForm.value as User;
   console.log(this.newUser);
+  alert("Succesfully signed");
+
 }
 isInvalid(controlName: string) : boolean{
   let control = this.userForm.get(controlName)!;
@@ -36,6 +45,7 @@ isInvalid(controlName: string) : boolean{
   if(control.errors?.['min']) return true;
   if(control.errors?.['passwordFormat']) return true;
   if(control.errors?.['emailFormat']) return true;
+  if(control.errors?.['isEmailMatch'] == null) return true;
   return false;
 }
 isValid(controlName : string){
@@ -47,6 +57,12 @@ getControl(controlName:string){
 }
 isInvalidControl(controlName:string, validationName:string){
   return this.getControl(controlName).errors?.[validationName];
+}
+
+hide : boolean = true;
+
+ShowPassword() {
+  this.hide = !this.hide;
 }
 }
 

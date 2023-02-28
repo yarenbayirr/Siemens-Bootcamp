@@ -4,9 +4,7 @@ export function emailValidator() : ValidatorFn {
     var emailValidatorFunc = (control : AbstractControl) : ValidationErrors | null => {
         const value = control.value;
         if(!value) return null;
-        const includesDot = value.includes('.');
-        const includesChar = value.includes('@');
-        const isValid = includesDot && includesChar;
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
         return isValid ? null : {emailFormat : true}
     }
    return emailValidatorFunc;
