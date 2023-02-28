@@ -5,6 +5,7 @@ import { Product } from 'app/models/product';
 import { PublishMenu } from 'app/models/publish-menu';
 import { barcodeValidator} from 'app/validations/barcode-validator';
 import { ExistProductNameValidator } from 'app/validations/exist-product-name-validator';
+import { PublishStartEndDataValidator } from 'app/validations/publish-start-end-date-validator';
 import { PostService } from './post.service';
 
 @Component({
@@ -17,8 +18,10 @@ export class ReactiveFormsComponent {
 productForm = this.formBuilder.group({
   name: ['',
   
-  {Validators: [Validators.required, Validators.minLength(5)],
-  asyncValidators: [ExistProductNameValidator(this.postService)]} 
+  {
+    Validators: [Validators.required, Validators.minLength(5)],
+    asyncValidators: [ExistProductNameValidator(this.postService)],
+    updateOn: 'submit',} //change, blur, submit
   
 ],
   price: [0,[Validators.required, Validators.min(100),Validators.max(1000)]],
@@ -29,7 +32,7 @@ productForm = this.formBuilder.group({
   barcode: ['', [Validators.required, barcodeValidator()]],
   publishStartDate: [ new Date(), [Validators.required]],
   publishEndDate: [new Date(), [Validators.required]],
-},{Validators: PublishStartEndDateValidator()});
+},{Validators: PublishStartEndDataValidator(), updateOn: 'blur'});
 
 categoryMenuList : CategoryMenu[] = [
   {id:1, text:"kalemler"},
@@ -48,8 +51,15 @@ constructor(private formBuilder: FormBuilder,  private postService: PostService)
   this.postService.searchByProductName('sunt').subscribe((x) => {
     console.log(x.length);
   });
+  this.productForm.get('barcode')?.valueChanges.subscribe((x) => {
+    console.log(x);
+  })
 }
 save(){
+  if(this.productForm.invalid){
+    alert("Lütfen tüm alanları doldurunuz")
+    return;
+  }
   this.newProduct = this.productForm.value as Product;
   console.log(this.newProduct);
 }
@@ -75,7 +85,5 @@ isInvalidControl(controlName:string, validationName:string){
   return this.getControl(controlName).errors?.[validationName];
 }
 }
-function PublishStartEndDateValidator(): any {
-  throw new Error('Function not implemented.');
-}
+
 
