@@ -4,6 +4,8 @@ import { CategoryMenu } from 'app/models/category-menu';
 import { Product } from 'app/models/product';
 import { PublishMenu } from 'app/models/publish-menu';
 import { barcodeValidator} from 'app/validations/barcode-validator';
+import { ExistProductNameValidator } from 'app/validations/exist-product-name-validator';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -13,7 +15,12 @@ import { barcodeValidator} from 'app/validations/barcode-validator';
 export class ReactiveFormsComponent {
   newProduct : Product | undefined = undefined;
 productForm = this.formBuilder.group({
-  name: ['', [Validators.required, Validators.minLength(5)]],
+  name: ['',
+  
+  {Validators: [Validators.required, Validators.minLength(5)],
+  asyncValidators: [ExistProductNameValidator(this.postService)]} 
+  
+],
   price: [0,[Validators.required, Validators.min(100),Validators.max(1000)]],
   stock: [0, [Validators.required, Validators.min(10),Validators.max(1000)]],
   category: ['', Validators.required],
@@ -37,8 +44,10 @@ publishMenuList: PublishMenu[] = [
 ]
 
 
-constructor(private formBuilder: FormBuilder){
-
+constructor(private formBuilder: FormBuilder,  private postService: PostService){
+  this.postService.searchByProductName('sunt').subscribe((x) => {
+    console.log(x.length);
+  });
 }
 save(){
   this.newProduct = this.productForm.value as Product;
