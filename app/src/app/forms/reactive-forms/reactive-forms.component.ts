@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CategoryMenu } from 'app/models/category-menu';
 import { Product } from 'app/models/product';
 import { PublishMenu } from 'app/models/publish-menu';
+import { barcodeValidator} from 'app/validations/barcode-validator';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -17,7 +18,11 @@ productForm = this.formBuilder.group({
   stock: [0, [Validators.required, Validators.min(10),Validators.max(1000)]],
   category: ['', Validators.required],
   publish: ["2"],
-});
+  isPublish:[false],
+  barcode: ['', [Validators.required, barcodeValidator()]],
+  publishStartDate: [ new Date(), [Validators.required]],
+  publishEndDate: [new Date(), [Validators.required]],
+},{Validators: PublishStartEndDateValidator()});
 
 categoryMenuList : CategoryMenu[] = [
   {id:1, text:"kalemler"},
@@ -45,6 +50,9 @@ isInvalid(controlName: string) : boolean{
   if(control.errors?.['required']) return true;
   if(control.errors?.['minlength']) return true;
   if(control.errors?.['maxlength']) return true;
+  if(control.errors?.['max']) return true;
+  if(control.errors?.['min']) return true;
+  if(control.errors?.['barcodeFormat']) return true;
   return false;
 }
 isValid(controlName : string){
@@ -58,3 +66,7 @@ isInvalidControl(controlName:string, validationName:string){
   return this.getControl(controlName).errors?.[validationName];
 }
 }
+function PublishStartEndDateValidator(): any {
+  throw new Error('Function not implemented.');
+}
+

@@ -1,64 +1,205 @@
 <p>reactive-forms works!</p>
-
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <form [formGroup]="productForm" (ngSubmit)="save()">
-                <div>
-                    <h4>Form properties</h4>
-                </div>
-                <div class="mb-3">
-                    <label clas="form-label">İsim</label>
-                    <input type="text" class="form-control" formControlName="name">
-                    <div class="from-text text-danger">
-                        <div *ngIf="isInvalid('name')">
-                        <div *ngIf="isInvalidControl('name', 'required')" >Ürün isim alanı gereklidir</div>
-                        <div *ngIf="isInvalidControl('name', 'minlength') || isInvalidControl('name', 'maxlength')">Ürün isim alanı en az 5 karakter en fazla 10 karakter olabilir</div>
-                         </div>
-                    </div>
-                    <div *ngIf="false"> <!--sakladık false diyerek hidden oldu-->
-                        <h4>Product Name Properties</h4>
-                        <ul>
-                            <li> Valid: {{productForm.get("name")?.value | json}}</li>
-                            <li> Invalid: {{productForm.get("name")?.valid}}</li>
-                            <li> Errors: {{productForm.get("name")?.errors | json}}</li>
-                            <li> Touched: {{productForm.get("name")?.touched}}</li>  <!--inputa dokununca-->
-                            <li> Untouched: {{productForm.get("name")?.untouched}}</li>
-                            <li> Dirty: {{productForm.get("name")?.dirty}}</li> <!--içerisine data girince-->
-                            <li> Pristine: {{productForm.get("name")?.pristine}}</li>
-                        </ul>
-                    </div>
-                </div>
+      <div class="col-md-6 offset-md-3">
+        <form [formGroup]="productForm" (ngSubmit)="save()">
+          <div>
+            <h3>Ürün kayıt</h3>
+          </div>
 
-                <div class="mb-3">
-                    <label clas="form-label">Fiyat</label>
-                    <input type="text" class="form-control" formControlName="price">
+          <div class="mb-3">
+            <label class="form-label">Yayınlanma aralığı(Başlangıç) :</label>
+            <input
+              formControlName="publishStartDate"
+              type="datetime-local"
+              class="form-control"
+            />
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('publishStartDate')">
+                <div *ngIf="isInvalidControl('publishStartDate', 'required')">
+                  ürün başlangıç tarihi alanı gereklidir.
                 </div>
-                <div class="mb-3">
-                    <label clas="form-label">Stok</label>
-                    <input type="text" class="form-control" formControlName="stock">
-                </div>
-               <select formControlName="category" class="from-select">
-                <option>Seçiniz</option>
-                <option value="{{category.id}}" *ngFor="let category of categoryMenuList">{{category.text}}</option>
-               </select>
-
-               <div class="from-text text-danger">
-                <div *ngIf="isInvalid('category')"> </div>
-                <div *ngIf="isInvalidControl('category', 'required')" >Lütfen kategori belirleyiniz</div>
-                </div>
+                
+              </div>
+            </div>
             
-               <div *ngFor="let publish of publishMenuList">
-                <div class="form-check">
-                    <input type="radio" formControlName="publish" class="form-check-input" value="{{publish.id}}">
-                    <label class="form-check-label" for="flexRadioDeafult1">{{publish.text}}</label>
-                </div>
-               </div>
-                <button type="submit" class="btn btn-primary">Kaydet</button>
-            
-            </form>
+            <label class="form-label">Yayınlanma aralığı(Bitiş) :</label>
+          <input
+            formControlName="publishEndDate"
+            type="datetime-local"
+            class="form-control"
+          />
+          <div class="form-text text-danger">
+            <div *ngIf="isInvalid('publishEndDate')">
+              <div *ngIf="isInvalidControl('publishEndDate', 'required')">
+                ürün bitiş tarihi alanı gereklidir.
+              </div>
+              
+            </div>
+          </div>
+       
+          <div class="form-text text-danger">
+            <div
+              *ngIf="
+                productForm.errors?.['dataRange'] &&
+                (productForm.touched || productForm.dirty)
+              "
+            >
+              Başlangıç ve bitiş tarihleri uyumlu değildir.
+            </div>
+          </div>
         </div>
-    
+        
+
+
+          <div class="mb-3">
+            <label class="form-label">Barcode:</label>
+            <input formControlName="barcode" type="text" class="form-control" />
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('barcode')">
+                <div *ngIf="isInvalidControl('barcode', 'required')">
+                  ürün barcode alanı gereklidir.
+                </div> 
+                <div *ngIf="isInvalidControl('barcode', 'barcodeFormat')">
+                    ürün barcode doğru formatta değil.
+                  </div> 
+              </div>
+            </div>
+        </div>
+
+  
+          <div class="mb-3">
+            <label class="form-label">İsim :</label>
+            <input formControlName="name" type="text" class="form-control" />
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('name')">
+                <div *ngIf="isInvalidControl('name', 'required')">
+                  ürün isim alanı gereklidir.
+                </div>
+  
+                <div
+                  *ngIf="
+                    isInvalidControl('name', 'minlength') ||
+                    isInvalidControl('name', 'maxlength')
+                  "
+                >
+                  ürün isim alanı en az 5 krakter.
+                </div>
+              </div>
+            </div>
+            <div *ngIf="false">
+              <h3>Product Name Properties</h3>
+              <ul>
+                <li>Value :{{ productForm.get("name")?.value | json }}</li>
+                <li>Valid :{{ productForm.get("name")?.valid }}</li>
+                <li>Invalid :{{ productForm.get("name")?.invalid }}</li>
+                <li>Errors :{{ productForm.get("name")?.errors | json }}</li>
+                <li>touched :{{ productForm.get("name")?.touched }}</li>
+                <li>untouched :{{ productForm.get("name")?.untouched }}</li>
+                <li>dirty :{{ productForm.get("name")?.dirty }}</li>
+                <li>pristine :{{ productForm.get("name")?.pristine }}</li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Fiyat :</label>
+            <input formControlName="price" type="number" class="form-control" />
+  
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('price')">
+                <div *ngIf="isInvalidControl('price', 'required')">
+                  ürün fiyat alanı gereklidir.
+                </div>
+  
+                <div
+                  *ngIf="
+                    isInvalidControl('price', 'min') ||
+                    isInvalidControl('price', 'max')
+                  "
+                >
+                  ürün fıyatı 100 ile 1000 arasında olmalıdır.
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Stock :</label>
+            <input formControlName="stock" type="number" class="form-control" />
+  
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('stock')">
+                <div *ngIf="isInvalidControl('stock', 'required')">
+                  ürün stok alanı gereklidir.
+                </div>
+  
+                <div
+                  *ngIf="
+                    isInvalidControl('stock', 'min') ||
+                    isInvalidControl('stock', 'max')
+                  "
+                >
+                  ürün stok değeri 10 ile 50 arasında olmalıdır.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Kategori :</label>
+            <select formControlName="category" class="form-select">
+              <option value="">Seçiniz</option>
+              <option
+                value="{{ category.id }}"
+                *ngFor="let category of categoryMenuList"
+              >
+                {{ category.text }}
+              </option>
+            </select>
+  
+            <div class="form-text text-danger">
+              <div *ngIf="isInvalid('category')">
+                <div *ngIf="isInvalidControl('category', 'required')">
+                  lütfen kategori belirleyiniz.
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label class="form-label">Yayın süresi :</label>
+            <div *ngFor="let publish of publishMenuList">
+              <div class="form-check">
+                <input
+                  formControlName="publish"
+                  class="form-check-input"
+                  type="radio"
+                  value="{{ publish.id }}"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  {{ publish.text }}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" formControlName="isPublish">
+            <label class="form-check-label" for="exampleCheck1">Yayınlansın mı?</label>
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
+
+
+
+
+
+
+
+
+
 
