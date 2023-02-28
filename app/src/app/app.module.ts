@@ -7,6 +7,7 @@ import { TemplateDrivenComponent } from './forms/template-driven/template-driven
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TwoWayBindingComponent } from './forms/two-way-binding/two-way-binding.component';
 import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsComponent } from './forms/reactive-forms/reactive-forms.co
     BrowserModule,
     AppRoutingModule,
     FormsModule,  //formu kullanmak için bunu entegre ettik
-    ReactiveFormsModule  //reactive için bunu
+    ReactiveFormsModule, //reactive için bunu
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
