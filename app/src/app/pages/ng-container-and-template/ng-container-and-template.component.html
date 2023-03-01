@@ -1,0 +1,32 @@
+<ng-template #header let-data>
+    <h1>{{data.name}}</h1>
+</ng-template>
+
+<ng-container *ngTemplateOutlet="header; context: { $implicit: {name: 'ahmet'}}"></ng-container>
+
+
+
+<table clas="table">
+    <thead>
+        <th>Picture</th>
+        <th>Id</th>
+        <th>UserId</th>
+        <th>Title</th>
+        <th>Body</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of posts">
+        <ng-container *ngTemplateOutlet="postrow; context: {postData: {post: p}}"></ng-container>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #postrow let-data="postData">  <!--diez koyduk adını verdik let kesin sonra tire sonra istediğin isim burda data mesela-->
+    <td>
+        <img src="https://www.crucial.com.au/wp-content/uploads/2014/07/example-person.png" alt="" style="width: 100px;">
+    </td>
+    <td>{{data.post.id}}</td>  <!--post yerine başka bir şey de yazabilirdik-->
+    <td>{{data.post.userId}}</td>
+    <td>{{data.post.title}}</td>
+    <td>{{data.post.body}}</td>
+</ng-template>

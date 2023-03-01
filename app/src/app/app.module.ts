@@ -5,16 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { HomeComponent } from './pages/home/home.component';
-
+import { NgContainerAndTemplateComponent } from './pages/ng-container-and-template/ng-container-and-template.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    NgContainerAndTemplateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UserModule //eagr loading
+    UserModule, //eagr loading
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
