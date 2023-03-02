@@ -3,20 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './mainpages/home/home.component';
-import { AboutComponent } from './mainpages/about/about.component';
-import { LoginComponent } from './mainpages/login/login.component';
+import { PublisherComponent } from './subject/publisher/publisher.component';
+import { Subscriber1Component } from './subject/subscriber1/subscriber1.component';
+import { Subscriber2Component } from './subject/subscriber2/subscriber2.component';
+import { PagesModule } from './pages/pages.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    AboutComponent,
-    LoginComponent
+    PublisherComponent,
+    Subscriber1Component,
+    Subscriber2Component,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
