@@ -4,11 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainlayoutComponent } from './mainlayout/mainlayout.component';
-import { MainhomeComponent } from './mainlayout/mainhome/mainhome.component';
-import { AboutComponent } from './mainlayout/about/about.component';
-import { ContactComponent } from './mainlayout/contact/contact.component';
-import { AdminModule } from './admin/admin.module';
+import { ProductComponent } from './components/product/product.component';
+import { ProductListComponent } from './components/product-list/product-list.component';
 
 
 
@@ -16,17 +13,17 @@ import { AdminModule } from './admin/admin.module';
 @NgModule({
     declarations: [
         AppComponent,
-        MainlayoutComponent,
-        MainhomeComponent,
-        AboutComponent,
-        ContactComponent
+        ProductComponent,
+        ProductListComponent,
+    
     ],
     providers: [],
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        AdminModule
+        ReactiveFormsModule
+     
     
     ]
 })
