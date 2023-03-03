@@ -4,17 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
-
-
+import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        ProductComponent,
-        ProductListComponent,
+        HomeComponent,
+        AboutComponent,
+        LoginComponent,
+
     
     ],
     providers: [],
@@ -22,7 +23,6 @@ import { ProductListComponent } from './components/product-list/product-list.com
     imports: [
         BrowserModule,
         AppRoutingModule,
-        ReactiveFormsModule
      
     
     ]
