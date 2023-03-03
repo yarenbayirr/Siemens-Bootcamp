@@ -1,26 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { SubjectProviderService } from 'src/app/subject/subject-provider.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { SubjectproviderService } from '../subjectprovider.service';
 
 @Component({
-  selector: 'app-publisher-page',
+  selector: 'app-publisher',
   templateUrl: './publisher.component.html',
   styleUrls: ['./publisher.component.css']
 })
 export class PublisherComponent implements OnInit {
-  constructor(private subjectServiceProvider: SubjectProviderService){
-
-  }
+  myForm: FormGroup | undefined;
+    constructor(private subjectProvider: SubjectproviderService, private formBuilder: FormBuilder){
+      this.subjectProvider.publish(2); 
+    }
   ngOnInit(): void {
+    this.myForm = this.formBuilder.group({
+      name: '',
+    });
+    
+      this.myForm.valueChanges.subscribe(val => {
+        this.name = val;
+      });
+    
+  }
   
-  }
-  mySelectMenu: NgModel | undefined;
-  name: string | undefined;
-  change(data: any){
-       console.log(data);
-       this.subjectServiceProvider.mySelectMenuObservable.next(data)
-  }
-  changeName(){
-    this.subjectServiceProvider.mySelectMenuObservable.next(this.name)
-  }
+  
+   
 }
