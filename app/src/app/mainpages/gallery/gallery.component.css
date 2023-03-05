@@ -1,4 +1,6 @@
+
 .img-gallery{
+    
     width: 80%;
     margin: 100px auto 50px;
     display: grid;
@@ -8,4 +10,9 @@
 .img-gallery img{
     width: 100%;
     cursor: pointer;
+}
+.img-gallery img:hover{
+    transform: scale(1.5);
+    border-radius: 20px;
+    box-shadow: 0 32px 7px rgba(68,77,136,0.2);
 }
