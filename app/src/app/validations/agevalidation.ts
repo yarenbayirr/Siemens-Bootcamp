@@ -2,17 +2,14 @@ import { FormGroup, ValidatorFn, Validator, ValidationErrors, AbstractControl } 
 
 export function AgeValidator(): ValidatorFn | null {
     return (control: AbstractControl): ValidationErrors | null => {
-      const birthDateValue = control.get('birthDate')?.value;
-      
-  
-      if (birthDateValue) {
-        let birthDate = new Date(birthDateValue);
-        let currentDate = new Date();
-  
-        const isValid = currentDate.getFullYear() - birthDate.getFullYear() >= 16
-        return isValid ? null : { age: true };
-      }
-  
-      return null;
+      let birthdateYear = new Date(control.value).getTime();
+      let today = new Date().getTime();
+      let differenceMs = today - birthdateYear;
+      let differenceDay = Math.floor(differenceMs / (1000 * 60 * 60 * 24));
+      let ageRule = differenceDay / 365 >= 16;
+      let yearRule = birthdateYear <= today;
+      const isValid = ageRule && yearRule;
+      return isValid ? null : { ageFormat: true };
     };
+  
   }

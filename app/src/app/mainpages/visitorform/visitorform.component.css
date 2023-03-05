@@ -1,0 +1,14 @@
+.error-modal {
+    background-color: rgb(212, 124, 124);
+  }
+  .success-modal {
+    background-color: rgb(200, 212, 124);
+  }
+  .close-icon-error {
+    background-color: rgb(212, 124, 124);
+    border: none;
+  }
+  .close-icon-success {
+    background-color: rgb(200, 212, 124);
+    border: none;
+  }

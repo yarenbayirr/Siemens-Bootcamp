@@ -1,1 +1,26 @@
-<p>user-list works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>username</th>
+        <th>email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of userList">
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.username }}</td>
+        <td>{{ p.email }}</td>
+        <td>
+         
+        
+          <a class="btn btn-primary" [routerLink]="['/admin/user-detail', p.id]"
+            >detay göster</a> 
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>

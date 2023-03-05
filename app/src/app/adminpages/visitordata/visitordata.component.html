@@ -1,1 +1,35 @@
-<p>visitordata works!</p>
+
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>E-mail</th>
+          <th>Content</th>
+          <th>Birthdate</th>
+          <th>Publish</th>
+          <th>Content Type</th>
+          <th>İşlemler</th>
+          <th>confirm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-text" *ngFor="let visitor of visitorService.visitors">
+          <th>{{ visitor?.name }}</th>
+          <th>{{ visitor?.email }}</th>
+          <th>{{ visitor?.content }}</th>
+          <th>{{ visitor?.birthDate }}</th>
+          <th>{{ visitor?.publishdateExpire }}</th>
+          <th>{{ visitor?.contentType }}</th>
+         
+          <button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)">Delete</button>
+          <label for="">Confirm</label>
+          <input type="checkbox" [(ngModel)]="isChecked" [disabled]="isDisabled" (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" >
+          <th>{{ visitor?.isConfirmed }}</th>
+        </tr>
+      </tbody>
+    </table>
+ 
+
+     
+   

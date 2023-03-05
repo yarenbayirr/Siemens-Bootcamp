@@ -8,5 +8,6 @@ export function ContentValidator(): ValidatorFn | null {
       const isValid  =  isLengthValid;
       return isValid ? null : {contentFormat : true}
       
+      
     };
   }

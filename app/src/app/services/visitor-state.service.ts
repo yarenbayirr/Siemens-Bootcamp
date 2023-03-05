@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class VisitorStateService {
-
+  public confirmedVisitors : Visitor[] = [];
   public visitors : Visitor[] = [];
   constructor() { }
 
@@ -21,4 +21,10 @@ export class VisitorStateService {
     form.reset();
     form.controls['publishdateExpire'].setValue('1 month');
   }
+
+  filterConfirm(): Visitor[] {
+    return this.confirmedVisitors = this.visitors.filter(x=>x.isConfirmed == true);
+  }
+
+  
 }

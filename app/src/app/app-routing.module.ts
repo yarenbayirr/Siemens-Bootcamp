@@ -24,10 +24,13 @@ const routes: Routes = [
   ]},
   {path: 'admin', component: AdminLayoutComponent, children:[
     {path: 'home', component: AdminhomeComponent},
-    {path: 'comments', component: CommentsListComponent},
+    {path: 'comments-list/:id', component: CommentsListComponent},
     {path: 'posts', component: PostListComponent},
     {path: 'users', component: UserListComponent},
     {path: 'visitors', component: VisitordataComponent},
+    {path: 'post-list', component: PostListComponent},
+    {path: 'user-list', component: UserListComponent},
+    {path: 'user-detail/:id', component: UserDetailComponent},
 
   ]}
 ];
