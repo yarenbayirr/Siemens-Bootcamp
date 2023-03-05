@@ -21,10 +21,9 @@
           <th>{{ visitor?.birthDate }}</th>
           <th>{{ visitor?.publishdateExpire }}</th>
           <th>{{ visitor?.contentType }}</th>
-         
           <button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)">Delete</button>
           <label for="">Confirm</label>
-          <input type="checkbox" [(ngModel)]="isChecked" [disabled]="isDisabled" (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" >
+          <input type="checkbox" [(ngModel)]="isChecked"  (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" >
           <th>{{ visitor?.isConfirmed }}</th>
         </tr>
       </tbody>
