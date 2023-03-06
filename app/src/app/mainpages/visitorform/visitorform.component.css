@@ -12,3 +12,33 @@
     background-color: rgb(200, 212, 124);
     border: none;
   }
+  input {
+    background-color: #deefff;
+
+  }
+  textarea{
+    background-color: #deefff;
+  }
+  select{
+    background-color: #deefff;
+  }
+  .input-danger{
+    border: 1px solid red;
+  }
+  .btn{
+    background-color: #f1bb25;
+    color: #ffffff;
+  }
+  .btn:hover{
+    background-color: #f1b100;
+  }
+  table{
+    table-layout:fixed;
+
+  }
+  td{
+    word-break: break-all;
+  }
+  th{
+    color:#f1bb25;
+  }

@@ -1,0 +1,10 @@
+a{
+    float: right;
+    text-decoration: none;
+    border: 1px solid black;
+    padding: 2px;
+    color: rgb(93, 93, 93);
+}
+a:hover{
+    color: rgb(33, 33, 33);
+}

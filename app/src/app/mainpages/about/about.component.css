@@ -1,0 +1,44 @@
+
+.mydivAb{
+    background-color: #e7e6e5;
+    width: 100%;
+    height: 45vh;
+}
+
+.myDiv3{
+    position: absolute;
+    right: 85px;
+    bottom: 100px;
+    width: 50vh;
+    height: 70vh;
+    background-color: #deefff;
+    z-index: 1;
+}
+img{
+    position: absolute;
+    right: 30vh;
+    bottom: 30vh;
+    width: 100vh;
+    
+   
+}
+
+.myDiv2{
+    background-color: #ffffff;
+    width: 100%;
+    height:20vh;
+}
+h1{
+    position: absolute;
+    right: 60vh;
+    top: 7vh;
+}
+p{
+    position: absolute;
+    bottom: 10vh;
+    margin-left: 25vh;
+    margin-right: 25vh;
+    text-align: center;
+    
+    
+}

@@ -6,6 +6,7 @@ import { Visitor } from 'src/app/models/visitor';
 import { VisitorStateService } from 'src/app/services/visitor-state.service';
 import { AgeValidator } from 'src/app/validations/agevalidation';
 import { ContentValidator } from 'src/app/validations/contentvalidation';
+import { emailValidator } from 'src/app/validations/emailvalidation';
 
 @Component({
   selector: 'app-visitorform',
@@ -23,7 +24,7 @@ export class VisitorformComponent {
    }
    visitorForm = this.formBuilder.group({
     name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, emailValidator()]],
     content: ['',[Validators.required, ContentValidator()]],
     birthDate: ['',[Validators.required, AgeValidator()]],
     publishdateExpire: ['1 month'],
@@ -48,6 +49,7 @@ export class VisitorformComponent {
    if(control.errors?.['required']) return true;
    if(control.errors?.['contentFormat']) return true;
    if(control.errors?.['ageFormat']) return true;
+   if(control.errors?.['emailFormat']) return true;
    return false;
  }
  isValid(controlName : string){
@@ -74,6 +76,8 @@ export class VisitorformComponent {
   this.visibilityAlertConfirm = true;
   this.visitorForm.controls['isConfirmed'].setValue(false);
   this.newVisitor = this.visitorForm.value as unknown as Visitor;
+  this.newVisitor.name = this.newVisitor.name.toUpperCase();
+  this.newVisitor.content = this.newVisitor.content[0].toLocaleUpperCase() + this.newVisitor.content.slice(1).toLowerCase();
   this.visitorService.addVisitor(this.newVisitor);
   console.log(this.visitorService.visitors);
   this.visitorService.resetForm(this.visitorForm);

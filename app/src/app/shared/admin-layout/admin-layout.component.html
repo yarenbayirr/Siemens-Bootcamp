@@ -1,4 +1,5 @@
-<div class="myheader">
+<div class="row" style="height: 100vh">
+<div class="myheader col-md-3">
     <div class="mycontent">
       
           <ul class="mynavigation">
@@ -6,22 +7,19 @@
               <li><a class="mya" routerLink="/admin/posts">POSTS</a></li>
               <li><a class="mya" routerLink="/admin/users">USERS</a></li>
               <li><a class="mya" routerLink="/admin/visitors">VISITORS</a></li>
-              <li><a class="mya" routerLink="/home">GO BACK TO THE MAIN HOME</a></li>
+              <li><a class="mya" routerLink="/home">BACK TO THE MAIN HOME</a></li>
           </ul>
           
     </div>
   </div>
   
-  <div class="mycontainer">
+  <div class="pb-5 col-md-8 container">
    
      <router-outlet></router-outlet>
   
   </div>
+</div>
 
-  <!-- <div class="mycontainer">
-    <div class="mycard mycenter">
-     <router-outlet></router-outlet>
-    </div>
-  </div> -->
+
 
  
