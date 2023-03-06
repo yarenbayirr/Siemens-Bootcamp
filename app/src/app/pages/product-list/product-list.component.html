@@ -1,0 +1,9 @@
+<p>product-list works!</p>
+<button (click)="updateProduct(2)">Güncell</button>
+<ul>
+    <li *ngFor="let product of productList">
+        {{product.id}} {{product.name}} {{product.price}}
+        <input type="checkbox" (click)="isOk(product.id)">
+    </li>
+</ul>
+
