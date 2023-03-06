@@ -3,19 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './pages/product-list/product-list.component';
-import { ProductCreateComponent } from './pages/product-create/product-create.component';
-import { ProductDeleteComponent } from './product-delete/product-delete.component';
-import { ProductListWithOkComponent } from './pages/product-list-with-ok/product-list-with-ok.component';
+import { HighlightDirective } from './directives/highlight.directive';
+import { CounterDirective } from './directives/counter.directive';
+import { TextboxComponent } from './textbox/textbox.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    ProductCreateComponent,
-    ProductDeleteComponent,
-    ProductListWithOkComponent,
+    HighlightDirective,
+    CounterDirective,
+    TextboxComponent,
+
 
   ],
   imports: [
