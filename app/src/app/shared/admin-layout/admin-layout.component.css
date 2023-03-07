@@ -8,6 +8,7 @@ html {
     background-color: #ffffff;
     overflow: hidden;
     
+    
   }
 
 .mya, .mya:focus, .mya:active {
@@ -37,6 +38,7 @@ html {
     padding-top: 50px;
     padding-bottom: 100px;
     background-color: #f1bb25;
+    font-weight: 600;
     
    
   }

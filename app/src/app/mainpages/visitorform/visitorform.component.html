@@ -1,23 +1,7 @@
 <!-- <div class="row" style="height: 100px;"></div> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-  integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <div class="row">
 
-  <div *ngIf="visibilityAlertReject" class="alert error-modal mt-4 d-flex justify-content-between">
-    <div>Form is not valid. Please check your form.</div>
-    <button class="close-icon-error" (click)="closeAlert()">
-      <i class="fa-solid fa-xmark fa-2x"></i>
-    </button>
-  </div>
-  <div *ngIf="visibilityAlertConfirm" class="alert success-modal mt-4 d-flex justify-content-between">
-    <div>Form submitted succesfully.</div>
-    <button class="close-icon-success" (click)="closeAlert()">
-      <i class="fa-solid fa-xmark fa-2x"></i>
-    </button>
-  </div>
-
-  
   <div class="col-md-8 offset-md-2 px-5 pb-5 pt-3 mt-3" style="border: 1px solid #f1bb25">
 
     <form [formGroup]="visitorForm" (ngSubmit)="save()">
@@ -151,7 +135,7 @@
         <tr class="table-text" *ngFor="let visitor of visitorService.filterConfirm()">
           <td>{{ visitor?.name }}</td>
           <td>{{ visitor?.email }}</td>
-          <td>{{ visitor?.birthDate }}</td>
+          <td>{{ visitor?.birthDate | date:'dd-MM-YYY' }}</td>
           <td>{{ visitor?.contentType }}</td>
           <td>{{ visitor?.content }}</td>
           <td>{{ visitor?.publishdateExpire }}</td>

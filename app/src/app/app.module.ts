@@ -17,6 +17,8 @@ import { UserDetailComponent } from './adminpages/user-detail/user-detail.compon
 import { VisitorformComponent } from './mainpages/visitorform/visitorform.component';
 import { VisitordataComponent } from './adminpages/visitordata/visitordata.component';
 import {HttpClientModule} from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -46,7 +48,9 @@ import {HttpClientModule} from '@angular/common/http';
         SharedModule,
         HttpClientModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        ToastrModule.forRoot(),
+        BrowserAnimationsModule
      
     
     ]

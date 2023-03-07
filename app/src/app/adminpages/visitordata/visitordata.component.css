@@ -1,0 +1,10 @@
+table{
+    table-layout:fixed;
+
+  }
+  td{
+    word-break: break-all;
+  }
+  th{
+    color:#f1bb25;
+  }

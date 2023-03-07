@@ -7,6 +7,7 @@ import { VisitorStateService } from 'src/app/services/visitor-state.service';
 import { AgeValidator } from 'src/app/validations/agevalidation';
 import { ContentValidator } from 'src/app/validations/contentvalidation';
 import { emailValidator } from 'src/app/validations/emailvalidation';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-visitorform',
@@ -19,9 +20,9 @@ export class VisitorformComponent {
    visibilityAlertReject: boolean = false;
    visibilityAlertConfirm: boolean = false;
    
-   constructor(private formBuilder: FormBuilder, public visitorService: VisitorStateService){
+   constructor(private formBuilder: FormBuilder, public visitorService: VisitorStateService, private toastr: ToastrService) { }
     
-   }
+   
    visitorForm = this.formBuilder.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, emailValidator()]],
@@ -70,7 +71,7 @@ export class VisitorformComponent {
 
  save(){
   if(this.visitorForm.invalid){
-    this.visibilityAlertReject = true;
+    this.toastr.error("Form is not valid. Please check your form.")
     return;
   }
   this.visibilityAlertConfirm = true;
@@ -79,7 +80,7 @@ export class VisitorformComponent {
   this.newVisitor.name = this.newVisitor.name.toUpperCase();
   this.newVisitor.content = this.newVisitor.content[0].toLocaleUpperCase() + this.newVisitor.content.slice(1).toLowerCase();
   this.visitorService.addVisitor(this.newVisitor);
-  console.log(this.visitorService.visitors);
+  this.toastr.success("Form submitted succesfully.");
   this.visitorService.resetForm(this.visitorForm);
 }
 }

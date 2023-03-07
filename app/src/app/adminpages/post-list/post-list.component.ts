@@ -19,7 +19,7 @@ export class PostListComponent implements OnInit {
   }
 
   goToPostDetail(id: number) {
-    // this.router.navigateByUrl(`/post-detail/${id}`);
+    
     this.router.navigate(['/admin/comments-list',id]);
   }
 

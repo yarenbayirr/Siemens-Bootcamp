@@ -1,30 +1,30 @@
 
   
-    <table class="table">
+    <table class="table mt-5 ">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>E-mail</th>
-          <th>Content</th>
-          <th>Birthdate</th>
-          <th>Publish</th>
-          <th>Content Type</th>
-          <th>İşlemler</th>
-          <th>confirm</th>
+          <th>NAME</th>
+          <th>EMAIL</th>
+          <th>B.DATE</th>
+          <th>TYPE</th>
+          <th>CONTENT</th>
+          <th>P. EXPIRE</th> 
+          <th>CONFIRM/DELETE</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="table-text" *ngFor="let visitor of visitorService.visitors">
-          <th>{{ visitor?.name }}</th>
-          <th>{{ visitor?.email }}</th>
-          <th>{{ visitor?.content }}</th>
-          <th>{{ visitor?.birthDate }}</th>
-          <th>{{ visitor?.publishdateExpire }}</th>
-          <th>{{ visitor?.contentType }}</th>
-          <button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)">Delete</button>
-          <label for="">Confirm</label>
-          <input type="checkbox" [(ngModel)]="isChecked"  (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" >
-          <th>{{ visitor?.isConfirmed }}</th>
+        <tr class="" *ngFor="let visitor of visitorService.visitors">
+          <td>{{ visitor?.name }}</td>
+          <td>{{ visitor?.email }}</td>
+          <td>{{ visitor?.birthDate | date:'dd-MM-YYY' }}</td>
+          <td>{{ visitor?.contentType }}</td>
+          <td>{{ visitor?.content }}</td>
+          <td>{{ visitor?.publishdateExpire }}</td>
+          <td>  <input type="checkbox" [(ngModel)]="isChecked"  (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" ><button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)" style="margin-left: 15px;">Delete</button></td>
+          
+          
+        
+          <!-- <th>{{ visitor?.isConfirmed }}</th> -->
         </tr>
       </tbody>
     </table>
