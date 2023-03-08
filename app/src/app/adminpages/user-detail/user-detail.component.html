@@ -16,6 +16,23 @@
         <th>USER NAME</th>
         <td>{{ user?.username }}</td>
       </tr>
+      <tr>
+        <th>ADDRESS</th>
+        <td > Street: {{ user?.address?.street }}, Suite: {{user?.address?.suite}}, City: {{user?.address?.city}}, Zipcode: {{user?.address?.zipcode}}, Lat: {{ user?.address?.geo?.lat }}, Lng: {{ user?.address?.geo?.lng }}  </td>
+      </tr>
+      <tr>
+        <th>PHONE</th>
+        <td >{{ user?.phone }}</td>
+      </tr>
+      <tr>
+        <th>WEBSITE</th>
+        <td >{{ user?.website }}</td>
+      </tr>
+      <tr>
+        <th>COMPANY</th>
+        <td > Name: {{ user?.company?.name }}, CatchPhrase: {{ user?.company?.catchPhrase }}, Bs: {{ user?.company?.bs }}, </td>
+      </tr>
+     
      
     </tbody>
   </table>
