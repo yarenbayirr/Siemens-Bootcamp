@@ -20,7 +20,8 @@
           <td>{{ visitor?.contentType }}</td>
           <td>{{ visitor?.content }}</td>
           <td>{{ visitor?.publishdateExpire }}</td>
-          <td>  <input type="checkbox" [(ngModel)]="isChecked"  (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" ><button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)" style="margin-left: 15px;">Delete</button></td>
+          <!-- <td>  <input type="checkbox" [(ngModel)]="isChecked" (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" ><button class="btn btn-danger" (click)="visitorService.deleteVisitor(visitor.email)" style="margin-left: 15px;">Delete</button></td> -->
+          <td>  <input type="checkbox" [(ngModel)]="isChecked" (change)="checkValue(isChecked? visitor.isConfirmed = true : visitor.isConfirmed = false)" [disabled]=" visitor.isConfirmed" ><button class="btn btn-danger" (click)="deleteVisitor(visitor.email)" style="margin-left: 15px;">Delete</button></td>
           
           
         

@@ -25,7 +25,12 @@
   }
   td{
     word-break: break-all;
+    color:#000000;
   }
   th{
-    color:#f1bb25;
+    color:#000000;
+  }
+
+  table{
+    background-color: #f1bb25 ;
   }

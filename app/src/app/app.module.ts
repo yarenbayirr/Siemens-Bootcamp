@@ -19,6 +19,9 @@ import { VisitordataComponent } from './adminpages/visitordata/visitordata.compo
 import {HttpClientModule} from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgConfirmModule} from 'ng-confirm-box'
+
+
 
 
 
@@ -37,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         VisitordataComponent,
         
         
+        
 
     
     ],
@@ -50,7 +54,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         ReactiveFormsModule,
         FormsModule,
         ToastrModule.forRoot(),
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        NgConfirmModule
+        
+       
      
     
     ]
