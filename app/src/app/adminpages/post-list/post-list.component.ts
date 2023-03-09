@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from 'src/app/models/post';
-import { ApiService } from 'src/app/services/api.service';
+import { PostapiService } from 'src/app/services/postapi.service';
 
 @Component({
   selector: 'app-post-list',
@@ -10,10 +10,10 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class PostListComponent implements OnInit {
   postList: Post[] = [];
-  constructor(private apiService: ApiService, private router: Router){
+  constructor(private postApiService: PostapiService, private router: Router){
   }
   ngOnInit(): void {
-    this.apiService.getPosts().subscribe((x) => {
+    this.postApiService.getPosts().subscribe((x) => {
       this.postList = x;
     });
   }

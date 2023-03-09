@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Post } from 'src/app/models/post';
 import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
+import { PostapiService } from 'src/app/services/postapi.service';
+import { UserapiService } from 'src/app/services/userapi.service';
 import { VisitorStateService } from 'src/app/services/visitor-state.service';
 
 @Component({
@@ -12,11 +13,12 @@ import { VisitorStateService } from 'src/app/services/visitor-state.service';
 export class AdminhomeComponent {
   public postList:Post[] = [];
   public userList:User[] = [];
-  constructor(public apiService: ApiService, public visitorService: VisitorStateService){
-    this.apiService.getPosts().subscribe((x) => {
+  //public olabilir
+  constructor(private userApiService: UserapiService, private postApiService : PostapiService, public visitorService: VisitorStateService){
+    this.postApiService.getPosts().subscribe((x) => {
       this.postList = x;
     })
-    this.apiService.getUsers().subscribe((x) => {
+    this.userApiService.getUsers().subscribe((x) => {
       this.userList = x;
     })
   }
